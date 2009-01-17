@@ -1,5 +1,5 @@
-#ifndef __INTERFACE_H_
-#define __INTERFACE_H_
+#ifndef _INTERFACE_H
+#define _INTERFACE_H
 
 #include <gtk/gtk.h>
 
