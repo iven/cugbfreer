@@ -1,6 +1,6 @@
 #include "interface.h"
 
-int main (int argc, char *argv []) {
+gint main (gint argc, gchar *argv []) {
     GtkWidget *main_window;
 
     gtk_init (&argc, &argv);

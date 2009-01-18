@@ -2,7 +2,7 @@
 FIND_PACKAGE (GTK2 REQUIRED COMPONENTS gtk)
 INCLUDE_DIRECTORIES (${GTK2_INCLUDE_DIRS})
 # set targets
-SET (SRC_LIST main.c interface.c)
+SET (SRC_LIST main.c interface.c about.c)
 ADD_EXECUTABLE (cugbfreer ${SRC_LIST})
 TARGET_LINK_LIBRARIES (cugbfreer ${GTK2_LIBRARIES})
 INSTALL (TARGETS cugbfreer DESTINATION bin)
