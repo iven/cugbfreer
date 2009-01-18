@@ -3411,7 +3411,6 @@ __GTK_VSCROLLBAR_H__	gtkvscrollbar.h	32;"	d
 __GTK_VSEPARATOR_H__	gtkvseparator.h	32;"	d
 __GTK_WIDGET_H__	gtkwidget.h	32;"	d
 __GTK_WINDOW_H__	gtkwindow.h	32;"	d
-__INTERFACE_H_	./interface.h	2;"	d
 __gtk_marshal_MARSHAL_H__	gtkmarshal.h	4;"	d
 __gtk_reserved1	gtkfilechooserbutton.h	/^  void (*__gtk_reserved1);$/;"	m	struct:_GtkFileChooserButtonClass
 __gtk_reserved1	gtkstatusicon.h	/^  void (*__gtk_reserved1);$/;"	m	struct:_GtkStatusIconClass
@@ -4119,7 +4118,6 @@ copy_clipboard	gtklabel.h	/^  void (* copy_clipboard)  (GtkLabel       *label);$
 copy_clipboard	gtkoldeditable.h	/^  void (* copy_clipboard)  (GtkOldEditable *editable);$/;"	m	struct:_GtkOldEditableClass
 copy_clipboard	gtktextview.h	/^  void (* copy_clipboard)  (GtkTextView *text_view);$/;"	m	struct:_GtkTextViewClass
 create_custom_widget	gtkprintoperation.h	/^  GtkWidget *(*create_custom_widget) (GtkPrintOperation *operation);$/;"	m	struct:_GtkPrintOperationClass
-create_main_window	./interface.c	/^GtkWidget *create_main_window (void) {$/;"	f
 create_menu	gtkaction.h	/^  GtkWidget *(* create_menu)        (GtkAction *action);$/;"	m	struct:_GtkActionClass
 create_menu_item	gtkaction.h	/^  GtkWidget *(* create_menu_item)   (GtkAction *action);$/;"	m	struct:_GtkActionClass
 create_menu_proxy	gtktoolitem.h	/^  gboolean   (* create_menu_proxy)    (GtkToolItem *tool_item);$/;"	m	struct:_GtkToolItemClass
@@ -4722,7 +4720,6 @@ long_data	gtkbindings.h	/^    glong	 long_data;$/;"	m	union:_GtkBindingArg::__an
 long_data	gtktypeutils.h	/^    glong long_data;$/;"	m	union:_GtkArg::__anon35
 lookup	gtkpreview.h	/^  guchar *lookup;$/;"	m	struct:_GtkPreviewInfo
 ltr_context	gtktextlayout.h	/^  PangoContext *ltr_context;$/;"	m	struct:_GtkTextLayout
-main	./main.c	/^int main (int argc, char *argv []) {$/;"	f
 main_vbox	gtkfilesel.h	/^  GtkWidget *main_vbox;$/;"	m	struct:_GtkFileSelection
 map	gtkwidget.h	/^  void (* map)		       (GtkWidget        *widget);$/;"	m	struct:_GtkWidgetClass
 map_event	gtkwidget.h	/^  gboolean (* map_event)		(GtkWidget	     *widget,$/;"	m	struct:_GtkWidgetClass

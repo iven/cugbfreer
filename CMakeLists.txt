@@ -2,8 +2,12 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 
 PROJECT (CUGBFREER)
 
+# CMake module path
+SET (CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
+# add subdirectories
 ADD_SUBDIRECTORY (src bin)
-
+# enable warning
+ADD_DEFINITIONS ("-Wall")
 # install documents
 SET (FILES AUTHORS COPYING ChangeLog INSTALL NEWS README TODO)
 INSTALL (FILES ${FILES} DESTINATION share/doc/cugbfreer)
