@@ -1,26 +1,61 @@
 #include "interface.h"
 
-typedef struct {
-    gint num;
-    gchar *label;
-    gchar *icon;
-    gint tabs [10];
-} cf_note;
 enum {
     NOTE_LINKER,
     NOTE_IPMSG,
-    NOTES_COUNT
+    NOTES_COUNT,
+    NOTE_WELCOME
 };
 enum {
-    TAB_WELCOME,
-    TAB_LINKER,
-    TABS_COUNT
+    PAGE_WELCOME,
+    PAGE_LINKER,
+    PAGES_COUNT
 };
+typedef struct {
+    gchar *label;
+    gchar *icon;
+} cf_note;
+typedef struct {
+    gint notenum;
+    gchar *label;
+    GtkWidget * (*func) (void);
+} cf_page;
 cf_note notes [] = {
-    {NOTE_LINKER, "网关连接", LINKER_ICON, {TAB_LINKER}},
-    {NOTE_IPMSG, "飞鸽传书", IPMSG_ICON, {}},
-    {NOTES_COUNT, NULL, NULL, {}}
+    {"网关连接", LINKER_ICON},
+    {"飞鸽传书", IPMSG_ICON},
+    {NULL, NULL}
 };
+cf_page pages [] = {
+    {NOTE_WELCOME, "欢迎界面", create_page_welcome},
+    {NOTE_LINKER, "连接网关", create_page_linker},
+    {NOTES_COUNT, NULL, NULL}
+};
+static GtkWidget *notebook;
+static void show_pages (GtkWidget *widget, gpointer notenum) {
+    GtkWidget *page;
+    gint pagenum;
+    for (pagenum = 0; pagenum < PAGES_COUNT; pagenum ++) {
+        page = gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook), pagenum);
+        if (pages [pagenum].notenum == GPOINTER_TO_INT (notenum)) {
+            gtk_widget_show (page);
+        }
+        else {
+            gtk_widget_hide (page);
+        }
+    }
+}
+static GtkWidget *create_notebook (void) {
+    GtkWidget *notebook;
+    GtkWidget *label, *page;
+    cf_page *p_page;
+    notebook = gtk_notebook_new ();
+    for (p_page = pages; p_page -> label != NULL; p_page ++) {
+        label = gtk_label_new (p_page -> label);
+        page = (*p_page -> func) ();
+        gtk_notebook_append_page (GTK_NOTEBOOK (notebook), page, label);
+    }
+    return notebook;
+}
 static GtkWidget *create_toolbar (void) {
     GtkWidget *toolbar;
     GtkWidget *image;
@@ -33,11 +68,10 @@ static GtkWidget *create_toolbar (void) {
         image = gtk_image_new_from_file (p_note -> icon);
         item_button = gtk_tool_button_new (image, p_note -> label);
         gtk_toolbar_insert (GTK_TOOLBAR (toolbar), item_button, -1);
-//        g_signal_connect (G_OBJECT (item_button), "clicked", G_CALLBACK (show_tabs), p_note -> tabs);
+        g_signal_connect (G_OBJECT (item_button), "clicked", G_CALLBACK (show_pages), GINT_TO_POINTER (p_note - notes));
     }
     return toolbar;
 }
-
 GtkWidget *create_main_window (void) {
     GtkWidget *window;
     GtkWidget *vbox, *hbox;
@@ -65,6 +99,12 @@ GtkWidget *create_main_window (void) {
     //add tool buttons in the left
     toolbar = create_toolbar ();
     gtk_box_pack_start (GTK_BOX (hbox), toolbar, FALSE, TRUE, 5);
+    //add a notebook in the right
+    notebook = create_notebook ();
+    gtk_box_pack_start (GTK_BOX (hbox), notebook, TRUE, TRUE, 5);
+    gtk_widget_set_no_show_all (notebook, TRUE);
+    gtk_widget_show (notebook);
+    show_pages (notebook, GINT_TO_POINTER (NOTE_WELCOME));
     //add a button box in the bottom
     hbuttonbox = gtk_hbutton_box_new ();
     gtk_box_pack_start (GTK_BOX (vbox), hbuttonbox, FALSE, FALSE, 0);
@@ -75,5 +115,6 @@ GtkWidget *create_main_window (void) {
     button = gtk_button_new_from_stock (GTK_STOCK_QUIT);
     g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (gtk_main_quit), NULL);
     gtk_box_pack_end (GTK_BOX (hbuttonbox), button, FALSE, FALSE, 5);
+
     return window;
 }
