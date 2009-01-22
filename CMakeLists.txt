@@ -4,10 +4,12 @@ PROJECT (CUGBFREER)
 
 # CMake module path
 SET (CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
+SET (DOCS AUTHORS COPYING ChangeLog INSTALL NEWS README TODO)
+SET (pkgdatadir ${CMAKE_INSTALL_PREFIX}/share/cugbfreer)
+SET (pkgdocdir share/doc/cugbfreer)
 # add subdirectories
 ADD_SUBDIRECTORY (src bin)
-# enable warning
-ADD_DEFINITIONS ("-Wall")
+ADD_SUBDIRECTORY (pixmaps)
 # install documents
-SET (FILES AUTHORS COPYING ChangeLog INSTALL NEWS README TODO)
-INSTALL (FILES ${FILES} DESTINATION share/doc/cugbfreer)
+INSTALL (FILES ${DOCS} DESTINATION ${pkgdocdir})
+INSTALL (DIRECTORY pixmaps DESTINATION ${pkgdatadir})

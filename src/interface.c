@@ -1,10 +1,48 @@
 #include "interface.h"
 
+typedef struct {
+    gint num;
+    gchar *label;
+    gchar *icon;
+    gint tabs [10];
+} cf_note;
+enum {
+    NOTE_LINKER,
+    NOTE_IPMSG,
+    NOTES_COUNT
+};
+enum {
+    TAB_WELCOME,
+    TAB_LINKER,
+    TABS_COUNT
+};
+cf_note notes [] = {
+    {NOTE_LINKER, "网关连接", LINKER_ICON, {TAB_LINKER}},
+    {NOTE_IPMSG, "飞鸽传书", IPMSG_ICON, {}},
+    {NOTES_COUNT, NULL, NULL, {}}
+};
+static GtkWidget *create_toolbar (void) {
+    GtkWidget *toolbar;
+    GtkWidget *image;
+    GtkToolItem *item_button;
+    cf_note *p_note;
+    toolbar = gtk_toolbar_new ();
+    gtk_toolbar_set_orientation (GTK_TOOLBAR (toolbar), GTK_ORIENTATION_VERTICAL);
+    gtk_toolbar_set_icon_size (GTK_TOOLBAR (toolbar), GTK_ICON_SIZE_SMALL_TOOLBAR);
+    for (p_note = notes; p_note -> label != NULL; p_note ++) {
+        image = gtk_image_new_from_file (p_note -> icon);
+        item_button = gtk_tool_button_new (image, p_note -> label);
+        gtk_toolbar_insert (GTK_TOOLBAR (toolbar), item_button, -1);
+//        g_signal_connect (G_OBJECT (item_button), "clicked", G_CALLBACK (show_tabs), p_note -> tabs);
+    }
+    return toolbar;
+}
+
 GtkWidget *create_main_window (void) {
     GtkWidget *window;
     GtkWidget *vbox, *hbox;
     GtkWidget *banner, *hbuttonbox;
-    GtkWidget *button;
+    GtkWidget *toolbar, *button;
     
     //setup main window
     window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
@@ -19,11 +57,14 @@ GtkWidget *create_main_window (void) {
     gtk_container_add (GTK_CONTAINER (window), vbox);
     //add banner
     banner = gtk_image_new ();
-    gtk_widget_set_size_request (banner, -1, 100);
-    gtk_box_pack_start (GTK_BOX (vbox), banner, TRUE, FALSE, 5);
+    gtk_widget_set_size_request (banner, -1, 80);
+    gtk_box_pack_start (GTK_BOX (vbox), banner, FALSE, FALSE, 5);
     //add mainbody hbox in the middle
     hbox = gtk_hbox_new (FALSE, 5);
     gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 5);
+    //add tool buttons in the left
+    toolbar = create_toolbar ();
+    gtk_box_pack_start (GTK_BOX (hbox), toolbar, FALSE, TRUE, 5);
     //add a button box in the bottom
     hbuttonbox = gtk_hbutton_box_new ();
     gtk_box_pack_start (GTK_BOX (vbox), hbuttonbox, FALSE, FALSE, 0);

@@ -1,6 +1,9 @@
 # include gtk+-2.0
 FIND_PACKAGE (GTK2 REQUIRED COMPONENTS gtk)
 INCLUDE_DIRECTORIES (${GTK2_INCLUDE_DIRS})
+# enable warning
+ADD_DEFINITIONS ("-Wall")
+ADD_DEFINITIONS (-DPKGDATADIR="${pkgdatadir}")
 # set targets
 SET (SRC_LIST main.c interface.c about.c)
 ADD_EXECUTABLE (cugbfreer ${SRC_LIST})
