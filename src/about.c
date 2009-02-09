@@ -8,7 +8,7 @@ void show_about (GtkWidget *widget, gpointer data) {
     };
     dialog = gtk_about_dialog_new ();
     gtk_about_dialog_set_name (GTK_ABOUT_DIALOG (dialog), "Cugb Freer");
-    gtk_about_dialog_set_version (GTK_ABOUT_DIALOG (dialog), "0.01");
+    gtk_about_dialog_set_version (GTK_ABOUT_DIALOG (dialog), "0.1 Alpha1");
     gtk_about_dialog_set_website (GTK_ABOUT_DIALOG (dialog), "http://www.tofree.org/");
     gtk_about_dialog_set_website_label (GTK_ABOUT_DIALOG (dialog), "ToFree 开源社区");
     gtk_about_dialog_set_authors (GTK_ABOUT_DIALOG (dialog), authors);
