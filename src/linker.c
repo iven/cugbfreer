@@ -27,7 +27,7 @@ typedef struct {
 static cf_linker_data linker_data;
 static GtkWidget *user_entry, *pass_entry;
 static GtkWidget *range, *timeout;
-static gboolean get_linker_data (void) {
+static void get_linker_data (void) {
     gboolean bool;
     linker_data.user = gtk_entry_get_text (GTK_ENTRY (user_entry));
     linker_data.pass = gtk_entry_get_text (GTK_ENTRY (pass_entry));
@@ -35,27 +35,28 @@ static gboolean get_linker_data (void) {
     linker_data.range = bool ? CF_RANGE_WORLD : CF_RANGE_CHINA;
     bool = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (timeout));
     linker_data.timeout = bool ? CF_TIMEOUT_120MIN : CF_TIMEOUT_20MIN;
-    if (linker_data.user [0] == '\0') {
-        perror ("用户名不能为空。");
-        return TRUE;
-    }
-    else if (linker_data.pass [0] == '\0') {
-        perror ("密码不能为空。");
-        return TRUE;
-    }
-    return FALSE;
 }
 static void linker_action (GtkWidget *widget, gpointer operation) {
     struct hostent *host;
     struct sockaddr_in server_addr;
     gint sockfd, length, conn;
     gchar request [100], message [500], buf [MAX_DATA_SIZE];
-    // get data, break if it return TRUE (means error)
-    if (get_linker_data () && g_utf8_strlen (operation, -1) != 10) return;
+    // get data, break if there is any error
+    get_linker_data ();
+    if (g_utf8_strlen (operation, -1) != 10) {
+        if (linker_data.user [0] == '\0') {
+            perror ("用户名不能为空。");
+            return;
+        }
+        else if (linker_data.pass [0] == '\0') {
+            perror ("密码不能为空。");
+            return;
+        }
+    }
     // get ip address
     host = gethostbyname (SERVER_NAME);
     if (host == NULL) {
-        perror ("获取IP地址失败。\n");
+        herror ("获取IP地址失败。\n");
         return;
     }
     // create a socket
@@ -133,8 +134,7 @@ GtkWidget *create_page_linker (void) {
     button = gtk_button_new_from_stock (GTK_STOCK_DISCONNECT);
     g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (linker_action), "disconnect");
     gtk_table_attach_defaults (GTK_TABLE (table), button, 1, 2, 4, 5);
-    button = gtk_button_new ();
-    gtk_button_set_label (GTK_BUTTON (button), "断开全部");
+    button = gtk_button_new_with_mnemonic ("断开全部(_A)");
     image = gtk_image_new_from_stock (GTK_STOCK_STOP, GTK_ICON_SIZE_SMALL_TOOLBAR);
     gtk_button_set_image (GTK_BUTTON (button), image);
     g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (linker_action), "disconnectall");

@@ -78,27 +78,30 @@ static GtkWidget *create_toolbar (void) {
 GtkWidget *create_main_window (void) {
     GtkWidget *window;
     GtkWidget *vbox, *hbox;
-    GtkWidget *banner, *hbuttonbox;
+    GtkWidget *banner;
     GtkWidget *toolbar, *button;
     
+    // setup default icon
+    gtk_window_set_default_icon_from_file (APP_LOGO, NULL);
+    // set link buttons uri hook
+    gtk_link_button_set_uri_hook (cf_link_button_clicked, NULL, NULL);
     // setup main window
     window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-    gtk_window_set_title (GTK_WINDOW (window), "Cugb Freer");
-    gtk_widget_set_size_request (window, 700, 600);
-    gtk_window_set_resizable (GTK_WINDOW (window), TRUE);
-    gtk_container_set_border_width (GTK_CONTAINER (window), 10);
+    gtk_window_set_title (GTK_WINDOW (window), APP_NAME);
+    gtk_widget_set_size_request (window, 650, 650);
+    gtk_window_set_resizable (GTK_WINDOW (window), FALSE);
     gtk_window_set_position (GTK_WINDOW (window), GTK_WIN_POS_CENTER);
     g_signal_connect (G_OBJECT (window), "delete-event", G_CALLBACK (gtk_main_quit), NULL);
     // setup main container
-    vbox = gtk_vbox_new (FALSE, 5);
+    vbox = gtk_vbox_new (FALSE, 0);
     gtk_container_add (GTK_CONTAINER (window), vbox);
     // add banner
-    banner = gtk_image_new ();
-    gtk_widget_set_size_request (banner, -1, 80);
-    gtk_box_pack_start (GTK_BOX (vbox), banner, FALSE, FALSE, 5);
+    banner = gtk_image_new_from_file (APP_BANNER);
+    gtk_box_pack_start (GTK_BOX (vbox), banner, FALSE, FALSE, 0);
     // add mainbody hbox in the middle
     hbox = gtk_hbox_new (FALSE, 5);
-    gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 5);
+    gtk_container_set_border_width (GTK_CONTAINER (hbox), 5);
+    gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
     // add tool buttons in the left
     toolbar = create_toolbar ();
     gtk_box_pack_start (GTK_BOX (hbox), toolbar, FALSE, TRUE, 0);
@@ -109,15 +112,18 @@ GtkWidget *create_main_window (void) {
     gtk_widget_show (notebook);
     show_pages (notebook, GINT_TO_POINTER (NOTE_WELCOME));
     // add a button box in the bottom
-    hbuttonbox = gtk_hbutton_box_new ();
-    gtk_box_pack_start (GTK_BOX (vbox), hbuttonbox, FALSE, FALSE, 0);
+    hbox = gtk_hbox_new (FALSE, 0);
+    gtk_container_set_border_width (GTK_CONTAINER (hbox), 5);
+    gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, FALSE, 0);
     // add buttons in the button box
     button = gtk_button_new_from_stock (GTK_STOCK_ABOUT);
     g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (show_about), NULL);
-    gtk_box_pack_start (GTK_BOX (hbuttonbox), button, FALSE, FALSE, 5);
+    gtk_box_pack_start (GTK_BOX (hbox), button, FALSE, FALSE, 0);
+    button = gtk_link_button_new_with_label (APP_URL, "欢迎光临 ToFree 开源社区");
+    gtk_box_pack_start (GTK_BOX (hbox), button, TRUE, TRUE, 5);
     button = gtk_button_new_from_stock (GTK_STOCK_QUIT);
     g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (gtk_main_quit), NULL);
-    gtk_box_pack_end (GTK_BOX (hbuttonbox), button, FALSE, FALSE, 5);
+    gtk_box_pack_end (GTK_BOX (hbox), button, FALSE, FALSE, 0);
 
     return window;
 }
