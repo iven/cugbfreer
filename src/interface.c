@@ -45,8 +45,7 @@ static void show_pages (GtkWidget *widget, gpointer notenum) {
         }
     }
 }
-static GtkWidget *create_notebook (void) {
-    GtkWidget *notebook;
+static void create_notebook (void) {
     GtkWidget *label, *page;
     cf_page *p_page;
     notebook = gtk_notebook_new ();
@@ -57,7 +56,6 @@ static GtkWidget *create_notebook (void) {
         gtk_widget_show_all (page);
         gtk_notebook_append_page (GTK_NOTEBOOK (notebook), page, label);
     }
-    return notebook;
 }
 static GtkWidget *create_toolbar (void) {
     GtkWidget *toolbar;
@@ -106,7 +104,7 @@ GtkWidget *create_main_window (void) {
     toolbar = create_toolbar ();
     gtk_box_pack_start (GTK_BOX (hbox), toolbar, FALSE, TRUE, 0);
     // add a notebook in the right
-    notebook = create_notebook ();
+    create_notebook ();
     gtk_box_pack_start (GTK_BOX (hbox), notebook, TRUE, TRUE, 0);
     gtk_widget_set_no_show_all (notebook, TRUE);
     gtk_widget_show (notebook);

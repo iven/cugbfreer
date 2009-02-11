@@ -1,6 +1,4 @@
-#include "interface.h"
-
-#define LINK_OPEN_CMD "xdg-open"
+#include "misc.h"
 
 void cf_link_button_clicked (GtkLinkButton *button, const gchar *link_, gpointer data) {
     cf_open_link (link_);

@@ -1,4 +1,4 @@
-#include "interface.h"
+#include "welcome.h"
 
 GtkWidget *create_page_welcome (void) {
     GtkWidget *page;

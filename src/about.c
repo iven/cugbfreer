@@ -1,6 +1,7 @@
-#include "interface.h"
+#include "misc.h"
 
 static void cf_url_activated (GtkAboutDialog *about, const gchar *link_, gpointer data) {
+    // this will convert urls to link button
 }
 static void cf_email_activated (GtkAboutDialog *about, const gchar *link_, gpointer data) {
     cf_open_link (link_);
