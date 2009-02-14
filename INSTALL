@@ -14,4 +14,4 @@ Make sure you have cmake installed, then:
 cd build
 cmake ..    #cmake -DCMAKE_INSTALL_PREFIX=/usr ..
 make
-make install
+sudo make install

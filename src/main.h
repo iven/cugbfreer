@@ -1,10 +1,10 @@
 #ifndef _MAIN_H
 #define _MAIN_H
 
-#include <gtk/gtk.h>
+#include "cugbfreer.h"
+#include "keyfile.h"
+#include "interface.h"
 
-#define APP_NAME "Cugb Freer"
-#define APP_VERSION "0.1 Alpha1"
-#define APP_URL "http://www.tofree.org/"
+#define GETTEXT_PACKAGE "cugbfreer"
 
 #endif

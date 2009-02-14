@@ -12,25 +12,28 @@ enum {
     PAGES_COUNT
 };
 typedef struct {
-    gchar *label;
-    gchar *icon;
+    const gchar *label;
+    const gchar *icon;
 } cf_note;
 typedef struct {
-    gint notenum;
-    gchar *label;
+    const gint notenum;
+    const gchar *label;
     GtkWidget * (*func) (void);
 } cf_page;
 static cf_note notes [] = {
-    {"网关连接", LINKER_ICON},
-    {"飞鸽传书", IPMSG_ICON},
+    {N_ ("Linker"), LINKER_ICON},
+    {N_ ("IP Messager"), IPMSG_ICON},
     {NULL, NULL}
 };
 static cf_page pages [] = {
-    {NOTE_WELCOME, "欢迎界面", create_page_welcome},
-    {NOTE_LINKER, "连接网关", create_page_linker},
+    {NOTE_WELCOME, N_ ("Welcome"), create_page_welcome},
+    {NOTE_LINKER, N_ ("Connection"), create_page_connection},
     {NOTES_COUNT, NULL, NULL}
 };
 static GtkWidget *notebook;
+static void cf_link_button_clicked (GtkLinkButton *button, const gchar *link_, gpointer data) {
+    cf_open_link (link_);
+}
 static void show_pages (GtkWidget *widget, gpointer notenum) {
     GtkWidget *page;
     gint pagenum;
@@ -51,7 +54,7 @@ static void create_notebook (void) {
     notebook = gtk_notebook_new ();
     // create and append pages
     for (p_page = pages; p_page -> label != NULL; p_page ++) {
-        label = gtk_label_new (p_page -> label);
+        label = gtk_label_new (_ (p_page -> label));
         page = (*p_page -> func) ();
         gtk_widget_show_all (page);
         gtk_notebook_append_page (GTK_NOTEBOOK (notebook), page, label);
@@ -67,7 +70,7 @@ static GtkWidget *create_toolbar (void) {
     // create and insert buttons
     for (p_note = notes; p_note -> label != NULL; p_note ++) {
         image = gtk_image_new_from_file (p_note -> icon);
-        item_button = gtk_tool_button_new (image, p_note -> label);
+        item_button = gtk_tool_button_new (image, _ (p_note -> label));
         gtk_toolbar_insert (GTK_TOOLBAR (toolbar), item_button, -1);
         g_signal_connect (G_OBJECT (item_button), "clicked", G_CALLBACK (show_pages), GINT_TO_POINTER (p_note - notes));
     }
@@ -89,7 +92,7 @@ GtkWidget *create_main_window (void) {
     gtk_widget_set_size_request (window, 650, 650);
     gtk_window_set_resizable (GTK_WINDOW (window), FALSE);
     gtk_window_set_position (GTK_WINDOW (window), GTK_WIN_POS_CENTER);
-    g_signal_connect (G_OBJECT (window), "delete-event", G_CALLBACK (gtk_main_quit), NULL);
+    g_signal_connect (G_OBJECT (window), "delete-event", G_CALLBACK (cf_main_quit), NULL);
     // setup main container
     vbox = gtk_vbox_new (FALSE, 0);
     gtk_container_add (GTK_CONTAINER (window), vbox);
@@ -117,10 +120,10 @@ GtkWidget *create_main_window (void) {
     button = gtk_button_new_from_stock (GTK_STOCK_ABOUT);
     g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (show_about), NULL);
     gtk_box_pack_start (GTK_BOX (hbox), button, FALSE, FALSE, 0);
-    button = gtk_link_button_new_with_label (APP_URL, "欢迎光临 ToFree 开源社区");
+    button = gtk_link_button_new_with_label (APP_URL, _ ("Welcome to ToFree Open Forum"));
     gtk_box_pack_start (GTK_BOX (hbox), button, TRUE, TRUE, 5);
     button = gtk_button_new_from_stock (GTK_STOCK_QUIT);
-    g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (gtk_main_quit), NULL);
+    g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (cf_main_quit), NULL);
     gtk_box_pack_end (GTK_BOX (hbox), button, FALSE, FALSE, 0);
 
     return window;

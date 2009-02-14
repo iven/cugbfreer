@@ -1,10 +1,10 @@
 #ifndef _INTERFACE_H
 #define _INTERFACE_H
 
-#include "main.h"
+#include "cugbfreer.h"
 #include "misc.h"
 #include "about.h"
-#include "linker.h"
+#include "connection.h"
 #include "welcome.h"
 
 #define APP_LOGO PKGDATADIR"/pixmaps/logo.png"

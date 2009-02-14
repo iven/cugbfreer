@@ -1,0 +1,113 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-02-12 16:54+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../src/about.c:19
+msgid "ToFree Open Forum"
+msgstr ""
+
+#: ../src/about.c:21
+msgid "Cugb Freer is a toolkit for students in CUGB."
+msgstr ""
+
+#: ../src/connection.c:38
+msgid "Username cannot be null.\n"
+msgstr ""
+
+#: ../src/connection.c:42
+msgid "Password cannot be null.\n"
+msgstr ""
+
+#: ../src/connection.c:49
+msgid "Failed to get IP address.\n"
+msgstr ""
+
+#: ../src/connection.c:55
+msgid "Failed to create Socket.\n"
+msgstr ""
+
+#: ../src/connection.c:77
+msgid "Failed to connect.\n"
+msgstr ""
+
+#: ../src/connection.c:90
+msgid "IP Gateway"
+msgstr ""
+
+#: ../src/connection.c:96
+msgid "Username"
+msgstr ""
+
+#: ../src/connection.c:101
+msgid "Password"
+msgstr ""
+
+#: ../src/connection.c:107
+msgid "Range:"
+msgstr ""
+
+#: ../src/connection.c:109
+msgid "China"
+msgstr ""
+
+#: ../src/connection.c:111
+msgid "World"
+msgstr ""
+
+#: ../src/connection.c:114
+msgid "Timeout:"
+msgstr ""
+
+#: ../src/connection.c:116
+msgid "20 Minutes"
+msgstr ""
+
+#: ../src/connection.c:118
+msgid "2 Hours"
+msgstr ""
+
+#: ../src/connection.c:127
+msgctxt "Mnemonic should be (_D) in Chinese."
+msgid "_Disconnect All"
+msgstr ""
+
+#: ../src/interface.c:24
+msgid "Linker"
+msgstr ""
+
+#: ../src/interface.c:25
+msgid "IP Messager"
+msgstr ""
+
+#: ../src/interface.c:29
+msgid "Welcome"
+msgstr ""
+
+#: ../src/interface.c:30
+msgid "Connection"
+msgstr ""
+
+#: ../src/interface.c:120
+msgid "Welcome to ToFree Open Forum"
+msgstr ""
+
+#: ../src/welcome.c:7
+msgid ""
+"\n"
+"Cugb Freer is just for testing now. Welcome to send your feedback to me, or "
+"to join the project.\n"
+msgstr ""

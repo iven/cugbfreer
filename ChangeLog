@@ -1,0 +1,46 @@
+commit 543a1f6d3993b0a3f517f0203deab403850a2b97
+Author: iven <iven@iven-desktop.(none)>
+Date:   Tue Feb 10 02:15:55 2009 +0800
+
+    Linker can work now, not completed.
+
+commit 6aa327fea176521d2f71a5cd9505ec6e9f1a95ae
+Author: Iven Day <ivenvd@gmail.com>
+Date:   Thu Jan 22 22:03:05 2009 +0800
+
+    Completed main interface coding.
+
+Author: Iven Day <ivenvd@gmail.com>
+Date:   Thu Jan 22 12:49:13 2009 +0800
+
+    Added main structures and toolbar, not completed.
+
+commit 3106ab3e50c742f713359b588cd477e014df3b43
+Author: Iven Day <ivenvd@gmail.com>
+Date:   Sun Jan 18 22:51:07 2009 +0800
+
+    Added about dialog.
+
+commit cf4538d6c799ed84be564c4b07c647116c81250b
+Author: Iven Day <ivenvd@gmail.com>
+Date:   Sun Jan 18 11:51:58 2009 +0800
+
+    Use FindGTK2 module to find GTK+.
+
+commit e800a7d78f3de0e67b80f5a5ec8b61e4782cd3a6
+Author: Iven Day <ivenvd@gmail.com>
+Date:   Sat Jan 17 18:24:54 2009 +0800
+
+    Forgot to add files to git, added them.
+
+commit 9792942b5dbb3a0d695f6858a043333425224619
+Author: Iven Day <ivenvd@gmail.com>
+Date:   Sat Jan 17 17:19:35 2009 +0800
+
+    Replaced makefile with CMake.
+
+commit 5b2d6d9dd1b06db3f37f40a58b17b18bce6ef25b
+Author: Iven Day <ivenvd@gmail.com>
+Date:   Thu Jan 15 22:41:19 2009 +0800
+
+    Initial version of CugbFreer
