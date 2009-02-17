@@ -8,6 +8,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include "cugbfreer.h"
+#include "keyfile.h"
 
 #define SERVER_NAME "sun250.cugb.edu.cn"
 #define SERVER_PORT 80

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-12 16:54+0800\n"
+"POT-Creation-Date: 2009-02-16 22:24+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,63 +24,75 @@ msgstr ""
 msgid "Cugb Freer is a toolkit for students in CUGB."
 msgstr ""
 
-#: ../src/connection.c:38
-msgid "Username cannot be null.\n"
-msgstr ""
-
-#: ../src/connection.c:42
-msgid "Password cannot be null.\n"
-msgstr ""
-
-#: ../src/connection.c:49
+#: ../src/connection.c:67
 msgid "Failed to get IP address.\n"
 msgstr ""
 
-#: ../src/connection.c:55
+#: ../src/connection.c:73
 msgid "Failed to create Socket.\n"
 msgstr ""
 
-#: ../src/connection.c:77
+#: ../src/connection.c:95
 msgid "Failed to connect.\n"
 msgstr ""
 
-#: ../src/connection.c:90
+#: ../src/connection.c:113
+msgid "Username cannot be null."
+msgstr ""
+
+#: ../src/connection.c:117
+msgid "Password cannot be null."
+msgstr ""
+
+#: ../src/connection.c:138
 msgid "IP Gateway"
 msgstr ""
 
-#: ../src/connection.c:96
+#: ../src/connection.c:144
 msgid "Username"
 msgstr ""
 
-#: ../src/connection.c:101
+#: ../src/connection.c:150
 msgid "Password"
 msgstr ""
 
-#: ../src/connection.c:107
+#: ../src/connection.c:157
 msgid "Range:"
 msgstr ""
 
-#: ../src/connection.c:109
+#: ../src/connection.c:159
 msgid "China"
 msgstr ""
 
-#: ../src/connection.c:111
+#: ../src/connection.c:161
 msgid "World"
 msgstr ""
 
-#: ../src/connection.c:114
+#: ../src/connection.c:164
 msgid "Timeout:"
 msgstr ""
 
-#: ../src/connection.c:116
+#: ../src/connection.c:166
 msgid "20 Minutes"
 msgstr ""
 
-#: ../src/connection.c:118
+#: ../src/connection.c:168
 msgid "2 Hours"
 msgstr ""
 
-#: ../src/connection.c:127
+#: ../src/connection.c:171
+msgid "Options:"
+msgstr ""
+
+#: ../src/connection.c:173
+msgid "Save password"
+msgstr ""
+
+#: ../src/connection.c:176
+msgid "Auto connect"
+msgstr ""
+
+#: ../src/connection.c:186
 msgctxt "Mnemonic should be (_D) in Chinese."
 msgid "_Disconnect All"
 msgstr ""
@@ -101,8 +113,12 @@ msgstr ""
 msgid "Connection"
 msgstr ""
 
-#: ../src/interface.c:120
+#: ../src/interface.c:123
 msgid "Welcome to ToFree Open Forum"
+msgstr ""
+
+#: ../src/misc.c:29
+msgid "Open file failed."
 msgstr ""
 
 #: ../src/welcome.c:7

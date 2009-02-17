@@ -11,8 +11,7 @@ void cf_show_error (void) {
 void cf_error_dialog (const gchar *message) {
     GtkWidget *dialog;
     dialog = gtk_message_dialog_new (
-            GTK_WINDOW (main_window),
-            GTK_DIALOG_MODAL | GTK_DIALOG_NO_SEPARATOR,
+            GTK_WINDOW (main_window), GTK_DIALOG_MODAL,
             GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, message
             );
     gtk_dialog_run (GTK_DIALOG (dialog));

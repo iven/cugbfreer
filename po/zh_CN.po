@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1 Alpha1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-12 16:54+0800\n"
+"POT-Creation-Date: 2009-02-16 22:24+0800\n"
 "PO-Revision-Date: 2009-02-12 16:12+0800\n"
 "Last-Translator: iven <ivenvd@gmail.com>\n"
 "Language-Team: \n"
@@ -23,63 +23,75 @@ msgid "Cugb Freer is a toolkit for students in CUGB."
 msgstr ""
 "Cugb Freer 是一个地大学生自行编写的集合地大各种网络常用功能于一体的工具箱。"
 
-#: ../src/connection.c:38
-msgid "Username cannot be null.\n"
-msgstr "用户名不能为空。\n"
-
-#: ../src/connection.c:42
-msgid "Password cannot be null.\n"
-msgstr "密码不能为空。\n"
-
-#: ../src/connection.c:49
+#: ../src/connection.c:67
 msgid "Failed to get IP address.\n"
 msgstr "获取IP地址失败。\n"
 
-#: ../src/connection.c:55
+#: ../src/connection.c:73
 msgid "Failed to create Socket.\n"
 msgstr "创建Socket失败。\n"
 
-#: ../src/connection.c:77
+#: ../src/connection.c:95
 msgid "Failed to connect.\n"
 msgstr "连接失败。\n"
 
-#: ../src/connection.c:90
+#: ../src/connection.c:113
+msgid "Username cannot be null."
+msgstr "用户名不能为空。"
+
+#: ../src/connection.c:117
+msgid "Password cannot be null."
+msgstr "密码不能为空。"
+
+#: ../src/connection.c:138
 msgid "IP Gateway"
 msgstr "IP控制网关"
 
-#: ../src/connection.c:96
+#: ../src/connection.c:144
 msgid "Username"
 msgstr "用户名"
 
-#: ../src/connection.c:101
+#: ../src/connection.c:150
 msgid "Password"
 msgstr "密　码："
 
-#: ../src/connection.c:107
+#: ../src/connection.c:157
 msgid "Range:"
 msgstr "访问范围："
 
-#: ../src/connection.c:109
+#: ../src/connection.c:159
 msgid "China"
 msgstr "国内"
 
-#: ../src/connection.c:111
+#: ../src/connection.c:161
 msgid "World"
 msgstr "国际"
 
-#: ../src/connection.c:114
+#: ../src/connection.c:164
 msgid "Timeout:"
 msgstr "超时检查："
 
-#: ../src/connection.c:116
+#: ../src/connection.c:166
 msgid "20 Minutes"
 msgstr "20分钟"
 
-#: ../src/connection.c:118
+#: ../src/connection.c:168
 msgid "2 Hours"
 msgstr "2小时"
 
-#: ../src/connection.c:127
+#: ../src/connection.c:171
+msgid "Options:"
+msgstr "其他选项："
+
+#: ../src/connection.c:173
+msgid "Save password"
+msgstr "保存密码"
+
+#: ../src/connection.c:176
+msgid "Auto connect"
+msgstr "自动连接"
+
+#: ../src/connection.c:186
 msgctxt "Mnemonic should be (_D) in Chinese."
 msgid "_Disconnect All"
 msgstr "断开全部(_D)"
@@ -100,13 +112,19 @@ msgstr "欢迎界面"
 msgid "Connection"
 msgstr "连接网关"
 
-#: ../src/interface.c:120
+#: ../src/interface.c:123
 msgid "Welcome to ToFree Open Forum"
 msgstr "欢迎光临 ToFree 开源社区"
+
+#: ../src/misc.c:29
+msgid "Open file failed."
+msgstr ""
 
 #: ../src/welcome.c:7
 msgid ""
 "\n"
 "Cugb Freer is just for testing now. Welcome to send your feedback to me, or "
 "to join the project.\n"
-msgstr "\nCugb Freer目前为内部测试版，欢迎试用并提出宝贵意见，或者加入此项目。\n"
+msgstr ""
+"\n"
+"Cugb Freer目前为内部测试版，欢迎试用并提出宝贵意见，或者加入此项目。\n"

@@ -4,32 +4,94 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.7	//
-IPMSG_ICON	interface.h	9;"	d
-LINKER_ICON	interface.h	8;"	d
+APP_BANNER	interface.h	11;"	d
+APP_LOGO	interface.h	10;"	d
+APP_NAME	cugbfreer.h	7;"	d
+APP_URL	cugbfreer.h	9;"	d
+APP_VERSION	cugbfreer.h	8;"	d
+CF_RANGE_CHINA	connection.c	/^    CF_RANGE_CHINA$/;"	e	enum:__anon5	file:
+CF_RANGE_WORLD	connection.c	/^    CF_RANGE_WORLD = 1,$/;"	e	enum:__anon5	file:
+CF_TIMEOUT_120MIN	connection.c	/^    CF_TIMEOUT_120MIN$/;"	e	enum:__anon6	file:
+CF_TIMEOUT_20MIN	connection.c	/^    CF_TIMEOUT_20MIN,$/;"	e	enum:__anon6	file:
+CONFIG_FILE	keyfile.h	7;"	d
+GETTEXT_PACKAGE	main.h	8;"	d
+IPMSG_ICON	interface.h	13;"	d
+LINKER_ICON	interface.h	12;"	d
+LINK_OPEN_CMD	misc.h	8;"	d
+MAX_DATA_SIZE	connection.h	15;"	d
 NOTES_COUNT	interface.c	/^    NOTES_COUNT,$/;"	e	enum:__anon1	file:
 NOTE_IPMSG	interface.c	/^    NOTE_IPMSG,$/;"	e	enum:__anon1	file:
 NOTE_LINKER	interface.c	/^    NOTE_LINKER,$/;"	e	enum:__anon1	file:
-NOTE_WELCOME	interface.c	/^    NOTE_WELCOME \/\/no use$/;"	e	enum:__anon1	file:
+NOTE_WELCOME	interface.c	/^    NOTE_WELCOME$/;"	e	enum:__anon1	file:
 PAGES_COUNT	interface.c	/^    PAGES_COUNT$/;"	e	enum:__anon2	file:
 PAGE_LINKER	interface.c	/^    PAGE_LINKER,$/;"	e	enum:__anon2	file:
 PAGE_WELCOME	interface.c	/^    PAGE_WELCOME,$/;"	e	enum:__anon2	file:
+SERVER_NAME	connection.h	13;"	d
+SERVER_PORT	connection.h	14;"	d
 _ABOUT_H	about.h	2;"	d
+_CONNECTION_H	connection.h	2;"	d
+_CUGBFREER_H	cugbfreer.h	2;"	d
 _INTERFACE_H	interface.h	2;"	d
-_LINKER_H	linker.h	2;"	d
+_KEYFILE_H	keyfile.h	2;"	d
+_MAIN_H	main.h	2;"	d
+_MISC_H	misc.h	2;"	d
 _WELCOME_H	welcome.h	2;"	d
+autoconnect	connection.c	/^    gboolean savepass, autoconnect;$/;"	m	struct:__anon7	file:
+autoconnect_btn	connection.c	/^    GtkWidget *savepass_btn, *autoconnect_btn;$/;"	m	struct:__anon8	file:
+cf_error	main.c	/^GError *cf_error;$/;"	v
+cf_error_dialog	misc.c	/^void cf_error_dialog (const gchar *message) {$/;"	f
+cf_key_file	keyfile.c	/^static GKeyFile *cf_key_file;$/;"	v	file:
+cf_key_file_get_boolean	keyfile.c	/^gboolean cf_key_file_get_boolean (const gchar *group, const gchar *key) {$/;"	f
+cf_key_file_get_integer	keyfile.c	/^gint cf_key_file_get_integer (const gchar *group, const gchar *key) {$/;"	f
+cf_key_file_get_value	keyfile.c	/^gchar *cf_key_file_get_value (const gchar *group, const gchar *key) {$/;"	f
+cf_key_file_load	keyfile.c	/^void cf_key_file_load (void) {$/;"	f
+cf_key_file_save	keyfile.c	/^void cf_key_file_save (void) {$/;"	f
+cf_key_file_set_boolean	keyfile.c	/^void cf_key_file_set_boolean (const gchar *group, const gchar *key, gboolean value) {$/;"	f
+cf_key_file_set_integer	keyfile.c	/^void cf_key_file_set_integer (const gchar *group, const gchar *key, gint value) {$/;"	f
+cf_key_file_set_value	keyfile.c	/^void cf_key_file_set_value (const gchar *group, const gchar *key, const gchar *value) {$/;"	f
+cf_link_button_clicked	interface.c	/^static void cf_link_button_clicked (GtkLinkButton *button, const gchar *link_, gpointer data) {$/;"	f	file:
+cf_main_quit	misc.c	/^gboolean cf_main_quit (GtkWidget *widget, GdkEvent *event, gpointer data) {$/;"	f
 cf_note	interface.c	/^} cf_note;$/;"	t	typeref:struct:__anon3	file:
+cf_open_link	misc.c	/^void cf_open_link (const gchar *link_) {$/;"	f
 cf_page	interface.c	/^} cf_page;$/;"	t	typeref:struct:__anon4	file:
+cf_show_error	misc.c	/^void cf_show_error (void) {$/;"	f
+cf_write	misc.c	/^gboolean cf_write (const gchar *file, const gchar *data) {$/;"	f
+connect_action	connection.c	/^static void connect_action (connect_data *cdata, gchar *operation) {$/;"	f	file:
+connect_btn_clicked	connection.c	/^static void connect_btn_clicked (GtkWidget *widget, gpointer operation) {$/;"	f	file:
+connect_data	connection.c	/^} connect_data;$/;"	t	typeref:struct:__anon7	file:
+connect_init	connection.c	/^static void connect_init (GtkWidget *connect_btn) {$/;"	f	file:
+connect_widgets	connection.c	/^} connect_widgets;$/;"	t	typeref:struct:__anon8	file:
 create_main_window	interface.c	/^GtkWidget *create_main_window (void) {$/;"	f
-create_notebook	interface.c	/^static GtkWidget *create_notebook (void) {$/;"	f	file:
-create_page_linker	linker.c	/^GtkWidget *create_page_linker (void) {$/;"	f
+create_notebook	interface.c	/^static void create_notebook (void) {$/;"	f	file:
+create_page_connection	connection.c	/^GtkWidget *create_page_connection (void) {$/;"	f
 create_page_welcome	welcome.c	/^GtkWidget *create_page_welcome (void) {$/;"	f
 create_toolbar	interface.c	/^static GtkWidget *create_toolbar (void) {$/;"	f	file:
-func	interface.c	/^    GtkWidget *func;$/;"	m	struct:__anon4	file:
-icon	interface.c	/^    gchar *icon;$/;"	m	struct:__anon3	file:
-label	interface.c	/^    gchar *label;$/;"	m	struct:__anon3	file:
-label	interface.c	/^    gchar *label;$/;"	m	struct:__anon4	file:
+cwidgets	connection.c	/^static connect_widgets cwidgets;$/;"	v	file:
+func	interface.c	/^    GtkWidget * (*func) (void);$/;"	m	struct:__anon4	file:
+icon	interface.c	/^    const gchar *icon;$/;"	m	struct:__anon3	file:
+label	interface.c	/^    const gchar *label;$/;"	m	struct:__anon3	file:
+label	interface.c	/^    const gchar *label;$/;"	m	struct:__anon4	file:
 main	main.c	/^gint main (gint argc, gchar *argv []) {$/;"	f
-notenum	interface.c	/^    gint notenum;$/;"	m	struct:__anon4	file:
-notes	interface.c	/^cf_note notes [] = {$/;"	v
-pages	interface.c	/^cf_page pages [] = {$/;"	v
+main_window	main.c	/^GtkWidget *main_window;$/;"	v
+notebook	interface.c	/^static GtkWidget *notebook;$/;"	v	file:
+notenum	interface.c	/^    const gint notenum;$/;"	m	struct:__anon4	file:
+notes	interface.c	/^static cf_note notes [] = {$/;"	v	file:
+on_autoconnect_btn_toggled	connection.c	/^static void on_autoconnect_btn_toggled (GtkWidget *widget, gpointer data) {$/;"	f	file:
+on_email_activated	about.c	/^static void on_email_activated (GtkAboutDialog *about, const gchar *link_, gpointer data) {$/;"	f	file:
+on_pass_entry_activated	connection.c	/^static void on_pass_entry_activated (GtkWidget *widget, gpointer connect_btn) {$/;"	f	file:
+on_savepass_btn_toggled	connection.c	/^static void on_savepass_btn_toggled (GtkWidget *widget, gpointer data) {$/;"	f	file:
+on_url_activated	about.c	/^static void on_url_activated (GtkAboutDialog *about, const gchar *link_, gpointer data) {$/;"	f	file:
+on_user_entry_activated	connection.c	/^static void on_user_entry_activated (GtkWidget *widget, gpointer connect_btn) {$/;"	f	file:
+pages	interface.c	/^static cf_page pages [] = {$/;"	v	file:
+pass_entry	connection.c	/^    GtkWidget *user_entry, *pass_entry;$/;"	m	struct:__anon8	file:
+password	connection.c	/^    const gchar *username, *password;$/;"	m	struct:__anon7	file:
+range	connection.c	/^    gboolean range, timeout;$/;"	m	struct:__anon7	file:
+range_btn	connection.c	/^    GtkWidget *range_btn, *timeout_btn;$/;"	m	struct:__anon8	file:
+savepass	connection.c	/^    gboolean savepass, autoconnect;$/;"	m	struct:__anon7	file:
+savepass_btn	connection.c	/^    GtkWidget *savepass_btn, *autoconnect_btn;$/;"	m	struct:__anon8	file:
 show_about	about.c	/^void show_about (GtkWidget *widget, gpointer data) {$/;"	f
+show_pages	interface.c	/^static void show_pages (GtkWidget *widget, gpointer notenum) {$/;"	f	file:
+timeout	connection.c	/^    gboolean range, timeout;$/;"	m	struct:__anon7	file:
+timeout_btn	connection.c	/^    GtkWidget *range_btn, *timeout_btn;$/;"	m	struct:__anon8	file:
+user_entry	connection.c	/^    GtkWidget *user_entry, *pass_entry;$/;"	m	struct:__anon8	file:
+username	connection.c	/^    const gchar *username, *password;$/;"	m	struct:__anon7	file:
