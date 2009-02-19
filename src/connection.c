@@ -9,7 +9,7 @@ enum {
     CF_TIMEOUT_120MIN
 };
 typedef struct {
-    const gchar *username, *password;
+    gchar *username, *password;
     gboolean range, timeout;
     gboolean savepass, autoconnect;
 } connect_data;
@@ -49,11 +49,13 @@ static void connect_init (GtkWidget *connect_btn) {
         cdata.password = cf_key_file_get_value ("Linker", "password");
         cdata.autoconnect = cf_key_file_get_boolean ("Linker", "autoconnect");
         gtk_entry_set_text (GTK_ENTRY (cwidgets.user_entry), cdata.username);
-        gtk_entry_set_text (GTK_ENTRY (cwidgets.pass_entry), cdata.password);
+        gtk_entry_set_text (GTK_ENTRY (cwidgets.pass_entry), cf_decrypt (cdata.password));
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (cwidgets.autoconnect_btn), cdata.autoconnect);
         if (cdata.autoconnect) {
             gtk_button_clicked (GTK_BUTTON (connect_btn));
         }
+        g_free (cdata.username);
+        g_free (cdata.password);
     }
 }
 static void connect_action (connect_data cdata, gchar *operation) {
@@ -89,7 +91,6 @@ static void connect_action (connect_data cdata, gchar *operation) {
             "Content-Type: application/x-www-form-urlencoded\r\n"
             "Length: %d\r\n\r\n%s",
             length, length, request);
-    printf ("%s\n", message);
     // connect
     conn = connect (sockfd, (struct sockaddr *) &server_addr, sizeof (struct sockaddr));
     if (conn == -1) {
@@ -103,8 +104,8 @@ static void connect_action (connect_data cdata, gchar *operation) {
 }
 static void connect_btn_clicked (GtkWidget *widget, gpointer operation) {
     connect_data cdata;
-    cdata.username = gtk_entry_get_text (GTK_ENTRY (cwidgets.user_entry));
-    cdata.password = gtk_entry_get_text (GTK_ENTRY (cwidgets.pass_entry));
+    cdata.username = (gchar *) gtk_entry_get_text (GTK_ENTRY (cwidgets.user_entry));
+    cdata.password = (gchar *) gtk_entry_get_text (GTK_ENTRY (cwidgets.pass_entry));
     cdata.range = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (cwidgets.range_btn));
     cdata.timeout = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (cwidgets.timeout_btn));
     cdata.savepass = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (cwidgets.savepass_btn));
@@ -120,7 +121,7 @@ static void connect_btn_clicked (GtkWidget *widget, gpointer operation) {
         }
         if (cdata.savepass) {
             cf_key_file_set_value ("Linker", "username", cdata.username);
-            cf_key_file_set_value ("Linker", "password", cdata.password);
+            cf_key_file_set_value ("Linker", "password", cf_encrypt (cdata.password));
             cf_key_file_set_boolean ("Linker", "autoconnect", cdata.autoconnect);
         }
         cf_key_file_set_boolean ("Linker", "range", cdata.range);

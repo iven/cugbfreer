@@ -6,8 +6,11 @@
 #include "keyfile.h"
 
 #define LINK_OPEN_CMD "xdg-open"
+#define CF_ENCRYPT_KEY 17
 
 void cf_show_error (void);
+gchar *cf_encrypt (const gchar *text);
+gchar *cf_decrypt (const gchar *text);
 void cf_open_link (const gchar *link_);
 void cf_error_dialog (const gchar *message);
 gboolean cf_write (const gchar *file, const gchar *data);

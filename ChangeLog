@@ -1,3 +1,27 @@
+commit 4459e2f3ed125143dfd0e23b9485f8e4c4275a3d
+Author: Iven <ivenvd@gmail.com>
+Date:   Tue Feb 17 21:13:02 2009 +0800
+
+    Completed Linker group of the configuration file.
+
+commit a63ec6358f7b148d53be8d98ea03ea521436fc45
+Author: iven <iven@iven-desktop.(none)>
+Date:   Sun Feb 15 02:03:32 2009 +0800
+
+    Completed i18n and configuration management.
+
+commit 758a057ad596e812798875a02f87ae5ffbc60582
+Author: iven <iven@iven-desktop.(none)>
+Date:   Wed Feb 11 18:35:38 2009 +0800
+
+    Headers adjustments.
+
+commit 93bf33bf80c109668f6be6135cbf75107d44da86
+Author: iven <iven@iven-desktop.(none)>
+Date:   Wed Feb 11 03:21:23 2009 +0800
+
+    Added logo and banner, a lot of interface improvements.
+
 commit 543a1f6d3993b0a3f517f0203deab403850a2b97
 Author: iven <iven@iven-desktop.(none)>
 Date:   Tue Feb 10 02:15:55 2009 +0800
