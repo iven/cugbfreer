@@ -37,7 +37,8 @@ static void on_savepass_btn_toggled (GtkWidget *widget, gpointer data) {
     }
 }
 static void connect_init (GtkWidget *connect_btn) {
-    static connect_data cdata;
+    connect_data cdata;
+    gchar *temp_value;
     cdata.range = cf_key_file_get_boolean ("Linker", "range");
     cdata.timeout = cf_key_file_get_boolean ("Linker", "timeout");
     cdata.savepass = cf_key_file_get_boolean ("Linker", "savepass");
@@ -48,14 +49,16 @@ static void connect_init (GtkWidget *connect_btn) {
         cdata.username = cf_key_file_get_value ("Linker", "username");
         cdata.password = cf_key_file_get_value ("Linker", "password");
         cdata.autoconnect = cf_key_file_get_boolean ("Linker", "autoconnect");
+        temp_value = cf_decrypt (cdata.password);
         gtk_entry_set_text (GTK_ENTRY (cwidgets.user_entry), cdata.username);
-        gtk_entry_set_text (GTK_ENTRY (cwidgets.pass_entry), cf_decrypt (cdata.password));
+        gtk_entry_set_text (GTK_ENTRY (cwidgets.pass_entry), temp_value);
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (cwidgets.autoconnect_btn), cdata.autoconnect);
         if (cdata.autoconnect) {
             gtk_button_clicked (GTK_BUTTON (connect_btn));
         }
         g_free (cdata.username);
         g_free (cdata.password);
+        g_free (temp_value);
     }
 }
 static void connect_action (connect_data cdata, gchar *operation) {
@@ -66,7 +69,7 @@ static void connect_action (connect_data cdata, gchar *operation) {
     // get ip address
     host = gethostbyname (SERVER_NAME);
     if (host == NULL) {
-        herror (_ ("Failed to get IP address.\n"));
+        perror (_ ("Failed to get IP address.\n"));
         return;
     }
     // create a socket
@@ -78,7 +81,7 @@ static void connect_action (connect_data cdata, gchar *operation) {
     // set up server_addr
     server_addr.sin_family = AF_INET;
     server_addr.sin_port = htons (SERVER_PORT);
-    server_addr.sin_addr = * ((struct in_addr *) host -> h_addr);
+    server_addr.sin_addr = * ((struct in_addr *) host -> h_addr_list [0]);
     bzero (&server_addr.sin_zero, 8);
     // prepear the message
     sprintf (request, "uid=%s&password=%s&range=%d&timeout=%d&operation=%s",
@@ -104,6 +107,7 @@ static void connect_action (connect_data cdata, gchar *operation) {
 }
 static void connect_btn_clicked (GtkWidget *widget, gpointer operation) {
     connect_data cdata;
+    gchar *temp_value;
     cdata.username = (gchar *) gtk_entry_get_text (GTK_ENTRY (cwidgets.user_entry));
     cdata.password = (gchar *) gtk_entry_get_text (GTK_ENTRY (cwidgets.pass_entry));
     cdata.range = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (cwidgets.range_btn));
@@ -120,9 +124,11 @@ static void connect_btn_clicked (GtkWidget *widget, gpointer operation) {
             return;
         }
         if (cdata.savepass) {
+            temp_value = cf_encrypt (cdata.password);
             cf_key_file_set_value ("Linker", "username", cdata.username);
-            cf_key_file_set_value ("Linker", "password", cf_encrypt (cdata.password));
+            cf_key_file_set_value ("Linker", "password", temp_value);
             cf_key_file_set_boolean ("Linker", "autoconnect", cdata.autoconnect);
+            g_free (temp_value);
         }
         cf_key_file_set_boolean ("Linker", "range", cdata.range);
         cf_key_file_set_boolean ("Linker", "timeout", cdata.timeout);
