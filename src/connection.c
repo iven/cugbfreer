@@ -20,6 +20,7 @@ typedef struct {
 } connect_widgets;
 
 static connect_widgets cwidgets;
+static connect_data cdata;
 static void on_user_entry_activated (GtkWidget *widget, gpointer connect_btn) {
     gtk_button_clicked (GTK_BUTTON (connect_btn));
 }
@@ -37,7 +38,6 @@ static void on_savepass_btn_toggled (GtkWidget *widget, gpointer data) {
     }
 }
 static void connect_init (GtkWidget *connect_btn) {
-    connect_data cdata;
     gchar *temp_value;
     cdata.range = cf_key_file_get_boolean ("Linker", "range");
     cdata.timeout = cf_key_file_get_boolean ("Linker", "timeout");
@@ -61,7 +61,7 @@ static void connect_init (GtkWidget *connect_btn) {
         g_free (temp_value);
     }
 }
-static void connect_action (connect_data cdata, gchar *operation) {
+static void connect_action (const gchar *operation) {
     struct hostent *host;
     struct sockaddr_in server_addr;
     gint sockfd, length, conn;
@@ -106,7 +106,6 @@ static void connect_action (connect_data cdata, gchar *operation) {
     close (sockfd);
 }
 static void connect_btn_clicked (GtkWidget *widget, gpointer operation) {
-    connect_data cdata;
     gchar *temp_value;
     cdata.username = (gchar *) gtk_entry_get_text (GTK_ENTRY (cwidgets.user_entry));
     cdata.password = (gchar *) gtk_entry_get_text (GTK_ENTRY (cwidgets.pass_entry));
@@ -134,7 +133,7 @@ static void connect_btn_clicked (GtkWidget *widget, gpointer operation) {
         cf_key_file_set_boolean ("Linker", "timeout", cdata.timeout);
         cf_key_file_set_boolean ("Linker", "savepass", cdata.savepass);
     }
-    connect_action (cdata, (gchar *) operation);
+    connect_action ((const gchar *) operation);
 }
 GtkWidget *create_page_connection (void) {
     GtkWidget *page;
