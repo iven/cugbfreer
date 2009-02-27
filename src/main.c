@@ -1,10 +1,10 @@
 #include "main.h"
 
 GtkWidget *main_window;
-GError *cf_error;
 
 gint main (gint argc, gchar *argv []) {
     gtk_init (&argc, &argv);
+    g_thread_init (NULL);
 
     bindtextdomain (GETTEXT_PACKAGE, PKGLOCALEDIR);
     bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");

@@ -21,6 +21,7 @@ typedef struct {
 
 static connect_widgets cwidgets;
 static connect_data cdata;
+static GtkTextBuffer *connect_status;
 static void on_user_entry_activated (GtkWidget *widget, gpointer connect_btn) {
     gtk_button_clicked (GTK_BUTTON (connect_btn));
 }
@@ -61,22 +62,29 @@ static void connect_init (GtkWidget *connect_btn) {
         g_free (temp_value);
     }
 }
-static void connect_action (const gchar *operation) {
+static void connect_status_insert (const gchar *message) {
+    GtkTextIter iter_end;
+    g_assert (connect_status != NULL);
+    gtk_text_buffer_get_end_iter (connect_status, &iter_end);
+    gtk_text_buffer_insert (connect_status, &iter_end, message, -1);
+}
+static gpointer connect_action (gpointer operation) {
     struct hostent *host;
     struct sockaddr_in server_addr;
     gint sockfd, length, conn;
     gchar request [100], message [500], buf [MAX_DATA_SIZE];
     // get ip address
     host = gethostbyname (SERVER_NAME);
+    connect_status_insert (_ ("Connecting to the server...\n"));
     if (host == NULL) {
-        perror (_ ("Failed to get IP address.\n"));
-        return;
+        connect_status_insert (_ ("Failed to get IP address.\n"));
+        return NULL;
     }
     // create a socket
     sockfd = socket (AF_INET, SOCK_STREAM, 0);
     if (sockfd == -1) {
-        perror (_ ("Failed to create Socket.\n"));
-        return;
+        connect_status_insert (_ ("Failed to create Socket.\n"));
+        return NULL;
     }
     // set up server_addr
     server_addr.sin_family = AF_INET;
@@ -85,8 +93,11 @@ static void connect_action (const gchar *operation) {
     bzero (&server_addr.sin_zero, 8);
     // prepear the message
     sprintf (request, "uid=%s&password=%s&range=%d&timeout=%d&operation=%s",
-            cdata.username, cdata.password, cdata.range ? CF_RANGE_WORLD : CF_RANGE_CHINA,
-            cdata.timeout ? CF_TIMEOUT_120MIN : CF_TIMEOUT_20MIN, operation);
+            cdata.username, cdata.password,
+            cdata.range ? CF_RANGE_WORLD : CF_RANGE_CHINA,
+            cdata.timeout ? CF_TIMEOUT_120MIN : CF_TIMEOUT_20MIN,
+            (const gchar *) operation
+            );
     length = g_utf8_strlen (request, -1);
     sprintf (message, "POST /ipgw/ipgw.ipgw HTTP/1.1\r\n"
             "Host: "SERVER_NAME"\r\n"
@@ -97,16 +108,19 @@ static void connect_action (const gchar *operation) {
     // connect
     conn = connect (sockfd, (struct sockaddr *) &server_addr, sizeof (struct sockaddr));
     if (conn == -1) {
-        perror (_ ("Failed to connect.\n"));
-        return;
+        connect_status_insert (_ ("Failed to connect"));
+        return NULL;
     }
     send (sockfd, message, g_utf8_strlen (message, -1), 0);
     recv (sockfd, buf, sizeof (buf), 0);
     printf ("%s\n", buf);
     close (sockfd);
+    return NULL;
 }
-static void connect_btn_clicked (GtkWidget *widget, gpointer operation) {
+static void on_connect_btn_clicked (GtkWidget *widget, gpointer operation) {
+    GError *err = NULL;
     gchar *temp_value;
+    GThread *connect_thread;
     cdata.username = (gchar *) gtk_entry_get_text (GTK_ENTRY (cwidgets.user_entry));
     cdata.password = (gchar *) gtk_entry_get_text (GTK_ENTRY (cwidgets.pass_entry));
     cdata.range = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (cwidgets.range_btn));
@@ -115,11 +129,11 @@ static void connect_btn_clicked (GtkWidget *widget, gpointer operation) {
     cdata.autoconnect = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (cwidgets.autoconnect_btn));
     if (g_utf8_strlen (operation, -1) != 10) {
         if (cdata.username [0] == '\0') {
-            cf_error_dialog (_ ("Username cannot be null."));
+            connect_status_insert (_ ("Username cannot be null.\n"));
             return;
         }
         else if (cdata.password [0] == '\0') {
-            cf_error_dialog (_ ("Password cannot be null."));
+            connect_status_insert (_ ("Password cannot be null.\n"));
             return;
         }
         if (cdata.savepass) {
@@ -133,17 +147,22 @@ static void connect_btn_clicked (GtkWidget *widget, gpointer operation) {
         cf_key_file_set_boolean ("Linker", "timeout", cdata.timeout);
         cf_key_file_set_boolean ("Linker", "savepass", cdata.savepass);
     }
-    connect_action ((const gchar *) operation);
+    connect_thread = g_thread_create (connect_action, operation, FALSE, &err);
+    if (err != NULL) {
+        cf_show_error (&err);
+    }
 }
 GtkWidget *create_page_connection (void) {
     GtkWidget *page;
     GtkWidget *frame, *table;
     GtkWidget *label, *button, *image;
     GtkWidget *connect_btn;
+    GtkWidget *scrollwindow, *textview;
     page = gtk_alignment_new (.5, .4, .1, .3);
     frame = gtk_frame_new (_ ("IP Gateway"));
     gtk_container_add (GTK_CONTAINER (page), frame);
     table = gtk_table_new (3, 6, FALSE);
+    gtk_table_set_row_spacings (GTK_TABLE (table), 5);
     gtk_container_set_border_width (GTK_CONTAINER (table), 15);
     gtk_container_add (GTK_CONTAINER (frame), table);
     // username entry
@@ -184,16 +203,26 @@ GtkWidget *create_page_connection (void) {
     gtk_table_attach_defaults (GTK_TABLE (table), cwidgets.autoconnect_btn, 2, 3, 4, 5);
     // buttons
     connect_btn = gtk_button_new_from_stock (GTK_STOCK_CONNECT);
-    g_signal_connect (G_OBJECT (connect_btn), "clicked", G_CALLBACK (connect_btn_clicked), "connect");
+    g_signal_connect (G_OBJECT (connect_btn), "clicked", G_CALLBACK (on_connect_btn_clicked), "connect");
     gtk_table_attach_defaults (GTK_TABLE (table), connect_btn, 0, 1, 5, 6);
     button = gtk_button_new_from_stock (GTK_STOCK_DISCONNECT);
-    g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (connect_btn_clicked), "disconnect");
+    g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (on_connect_btn_clicked), "disconnect");
     gtk_table_attach_defaults (GTK_TABLE (table), button, 1, 2, 5, 6);
     button = gtk_button_new_with_mnemonic (Q_ ("Mnemonic should be (_D) in Chinese.|_Disconnect All"));
     image = gtk_image_new_from_stock (GTK_STOCK_STOP, GTK_ICON_SIZE_SMALL_TOOLBAR);
     gtk_button_set_image (GTK_BUTTON (button), image);
-    g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (connect_btn_clicked), "disconnectall");
+    g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (on_connect_btn_clicked), "disconnectall");
     gtk_table_attach_defaults (GTK_TABLE (table), button, 2, 3, 5, 6);
+    // textview (status)
+    scrollwindow = gtk_scrolled_window_new (NULL, NULL);
+    gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrollwindow), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+    gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrollwindow), GTK_SHADOW_IN);
+    gtk_table_attach_defaults (GTK_TABLE (table), scrollwindow, 0, 3, 6, 7);
+    connect_status = gtk_text_buffer_new (NULL);
+    textview = gtk_text_view_new_with_buffer (connect_status);
+    gtk_text_view_set_editable (GTK_TEXT_VIEW (textview), FALSE);
+    gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW (textview), GTK_WRAP_WORD_CHAR);
+    gtk_container_add (GTK_CONTAINER (scrollwindow), textview);
     // load configuration
     connect_init (connect_btn);
     return page;

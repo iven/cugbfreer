@@ -9,6 +9,7 @@ APP_LOGO	interface.h	10;"	d
 APP_NAME	cugbfreer.h	7;"	d
 APP_URL	cugbfreer.h	9;"	d
 APP_VERSION	cugbfreer.h	8;"	d
+CF_ENCRYPT_KEY	misc.h	9;"	d
 CF_RANGE_CHINA	connection.c	/^    CF_RANGE_CHINA$/;"	e	enum:__anon5	file:
 CF_RANGE_WORLD	connection.c	/^    CF_RANGE_WORLD = 1,$/;"	e	enum:__anon5	file:
 CF_TIMEOUT_120MIN	connection.c	/^    CF_TIMEOUT_120MIN$/;"	e	enum:__anon6	file:
@@ -38,7 +39,10 @@ _MISC_H	misc.h	2;"	d
 _WELCOME_H	welcome.h	2;"	d
 autoconnect	connection.c	/^    gboolean savepass, autoconnect;$/;"	m	struct:__anon7	file:
 autoconnect_btn	connection.c	/^    GtkWidget *savepass_btn, *autoconnect_btn;$/;"	m	struct:__anon8	file:
-cf_error	main.c	/^GError *cf_error;$/;"	v
+cdata	connection.c	/^static connect_data cdata;$/;"	v	file:
+cf_decrypt	misc.c	/^gchar *cf_decrypt (const gchar *text) {$/;"	f
+cf_encrypt	misc.c	/^gchar *cf_encrypt (const gchar *text) {$/;"	f
+cf_error	cugbfreer.h	/^GError *cf_error;$/;"	v
 cf_error_dialog	misc.c	/^void cf_error_dialog (const gchar *message) {$/;"	f
 cf_key_file	keyfile.c	/^static GKeyFile *cf_key_file;$/;"	v	file:
 cf_key_file_get_boolean	keyfile.c	/^gboolean cf_key_file_get_boolean (const gchar *group, const gchar *key) {$/;"	f
@@ -56,10 +60,11 @@ cf_open_link	misc.c	/^void cf_open_link (const gchar *link_) {$/;"	f
 cf_page	interface.c	/^} cf_page;$/;"	t	typeref:struct:__anon4	file:
 cf_show_error	misc.c	/^void cf_show_error (void) {$/;"	f
 cf_write	misc.c	/^gboolean cf_write (const gchar *file, const gchar *data) {$/;"	f
-connect_action	connection.c	/^static void connect_action (connect_data *cdata, gchar *operation) {$/;"	f	file:
+connect_action	connection.c	/^static gpointer connect_action (gpointer operation) {$/;"	f	file:
 connect_btn_clicked	connection.c	/^static void connect_btn_clicked (GtkWidget *widget, gpointer operation) {$/;"	f	file:
 connect_data	connection.c	/^} connect_data;$/;"	t	typeref:struct:__anon7	file:
 connect_init	connection.c	/^static void connect_init (GtkWidget *connect_btn) {$/;"	f	file:
+connect_status	connection.c	/^static GtkTextBuffer *connect_status;$/;"	v	file:
 connect_widgets	connection.c	/^} connect_widgets;$/;"	t	typeref:struct:__anon8	file:
 create_main_window	interface.c	/^GtkWidget *create_main_window (void) {$/;"	f
 create_notebook	interface.c	/^static void create_notebook (void) {$/;"	f	file:
@@ -72,7 +77,7 @@ icon	interface.c	/^    const gchar *icon;$/;"	m	struct:__anon3	file:
 label	interface.c	/^    const gchar *label;$/;"	m	struct:__anon3	file:
 label	interface.c	/^    const gchar *label;$/;"	m	struct:__anon4	file:
 main	main.c	/^gint main (gint argc, gchar *argv []) {$/;"	f
-main_window	main.c	/^GtkWidget *main_window;$/;"	v
+main_window	cugbfreer.h	/^GtkWidget *main_window;$/;"	v
 notebook	interface.c	/^static GtkWidget *notebook;$/;"	v	file:
 notenum	interface.c	/^    const gint notenum;$/;"	m	struct:__anon4	file:
 notes	interface.c	/^static cf_note notes [] = {$/;"	v	file:
@@ -84,7 +89,7 @@ on_url_activated	about.c	/^static void on_url_activated (GtkAboutDialog *about, 
 on_user_entry_activated	connection.c	/^static void on_user_entry_activated (GtkWidget *widget, gpointer connect_btn) {$/;"	f	file:
 pages	interface.c	/^static cf_page pages [] = {$/;"	v	file:
 pass_entry	connection.c	/^    GtkWidget *user_entry, *pass_entry;$/;"	m	struct:__anon8	file:
-password	connection.c	/^    const gchar *username, *password;$/;"	m	struct:__anon7	file:
+password	connection.c	/^    gchar *username, *password;$/;"	m	struct:__anon7	file:
 range	connection.c	/^    gboolean range, timeout;$/;"	m	struct:__anon7	file:
 range_btn	connection.c	/^    GtkWidget *range_btn, *timeout_btn;$/;"	m	struct:__anon8	file:
 savepass	connection.c	/^    gboolean savepass, autoconnect;$/;"	m	struct:__anon7	file:
@@ -94,4 +99,4 @@ show_pages	interface.c	/^static void show_pages (GtkWidget *widget, gpointer not
 timeout	connection.c	/^    gboolean range, timeout;$/;"	m	struct:__anon7	file:
 timeout_btn	connection.c	/^    GtkWidget *range_btn, *timeout_btn;$/;"	m	struct:__anon8	file:
 user_entry	connection.c	/^    GtkWidget *user_entry, *pass_entry;$/;"	m	struct:__anon8	file:
-username	connection.c	/^    const gchar *username, *password;$/;"	m	struct:__anon7	file:
+username	connection.c	/^    gchar *username, *password;$/;"	m	struct:__anon7	file:

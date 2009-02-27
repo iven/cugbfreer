@@ -1,15 +1,15 @@
 #include "keyfile.h"
 
-extern GError *cf_error;
 static GKeyFile *cf_key_file;
 void cf_key_file_load (void) {
+    GError *err = NULL;
     const gchar *search_path [2] = {g_get_user_config_dir (), PKGDATADIR};
     cf_key_file = g_key_file_new ();
     g_key_file_load_from_dirs (cf_key_file, CONFIG_FILE,
             search_path, NULL,
-            G_KEY_FILE_KEEP_COMMENTS, &cf_error);
-    if (cf_error != NULL) {
-        cf_show_error ();
+            G_KEY_FILE_KEEP_COMMENTS, &err);
+    if (err != NULL) {
+        cf_show_error (&err);
         gtk_main_quit ();
     }
 }
@@ -23,27 +23,30 @@ void cf_key_file_save (void) {
     g_key_file_free (cf_key_file);
 }
 gint cf_key_file_get_integer (const gchar *group, const gchar *key) {
-    gint value = g_key_file_get_integer (cf_key_file, group, key, &cf_error);
-    if (cf_error != NULL) {
-        cf_show_error ();
+    GError *err = NULL;
+    gint value = g_key_file_get_integer (cf_key_file, group, key, &err);
+    if (err != NULL) {
+        cf_show_error (&err);
         cf_key_file_set_integer (group, key, 0);
         value = 0;
     }
     return value;
 }
 gboolean cf_key_file_get_boolean (const gchar *group, const gchar *key) {
-    gboolean value = g_key_file_get_boolean (cf_key_file, group, key, &cf_error);
-    if (cf_error != NULL) {
-        cf_show_error ();
+    GError *err = NULL;
+    gboolean value = g_key_file_get_boolean (cf_key_file, group, key, &err);
+    if (err != NULL) {
+        cf_show_error (&err);
         cf_key_file_set_boolean (group, key, FALSE);
         value = FALSE;
     }
     return value;
 }
 gchar *cf_key_file_get_value (const gchar *group, const gchar *key) {
-    gchar *value = g_key_file_get_value (cf_key_file, group, key, &cf_error);
-    if (cf_error != NULL) {
-        cf_show_error ();
+    GError *err = NULL;
+    gchar *value = g_key_file_get_value (cf_key_file, group, key, &err);
+    if (err != NULL) {
+        cf_show_error (&err);
         cf_key_file_set_value (group, key, "");
         value = "";
     }

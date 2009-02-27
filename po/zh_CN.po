@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1 Alpha1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-16 22:24+0800\n"
+"POT-Creation-Date: 2009-02-28 04:12+0800\n"
 "PO-Revision-Date: 2009-02-12 16:12+0800\n"
 "Last-Translator: iven <ivenvd@gmail.com>\n"
 "Language-Team: \n"
@@ -23,75 +23,79 @@ msgid "Cugb Freer is a toolkit for students in CUGB."
 msgstr ""
 "Cugb Freer 是一个地大学生自行编写的集合地大各种网络常用功能于一体的工具箱。"
 
-#: ../src/connection.c:67
+#: ../src/connection.c:78
+msgid "Connecting to the server...\n"
+msgstr "正在连接服务器……\n"
+
+#: ../src/connection.c:80
 msgid "Failed to get IP address.\n"
 msgstr "获取IP地址失败。\n"
 
-#: ../src/connection.c:73
+#: ../src/connection.c:86
 msgid "Failed to create Socket.\n"
 msgstr "创建Socket失败。\n"
 
-#: ../src/connection.c:95
-msgid "Failed to connect.\n"
-msgstr "连接失败。\n"
+#: ../src/connection.c:111
+msgid "Failed to connect"
+msgstr "连接失败"
 
-#: ../src/connection.c:113
-msgid "Username cannot be null."
-msgstr "用户名不能为空。"
+#: ../src/connection.c:132
+msgid "Username cannot be null.\n"
+msgstr "用户名不能为空。\n"
 
-#: ../src/connection.c:117
-msgid "Password cannot be null."
-msgstr "密码不能为空。"
+#: ../src/connection.c:136
+msgid "Password cannot be null.\n"
+msgstr "密码不能为空。\n"
 
-#: ../src/connection.c:138
+#: ../src/connection.c:162
 msgid "IP Gateway"
 msgstr "IP控制网关"
 
-#: ../src/connection.c:144
+#: ../src/connection.c:169
 msgid "Username"
 msgstr "用户名"
 
-#: ../src/connection.c:150
+#: ../src/connection.c:175
 msgid "Password"
 msgstr "密　码："
 
-#: ../src/connection.c:157
+#: ../src/connection.c:182
 msgid "Range:"
 msgstr "访问范围："
 
-#: ../src/connection.c:159
+#: ../src/connection.c:184
 msgid "China"
 msgstr "国内"
 
-#: ../src/connection.c:161
+#: ../src/connection.c:186
 msgid "World"
 msgstr "国际"
 
-#: ../src/connection.c:164
+#: ../src/connection.c:189
 msgid "Timeout:"
 msgstr "超时检查："
 
-#: ../src/connection.c:166
+#: ../src/connection.c:191
 msgid "20 Minutes"
 msgstr "20分钟"
 
-#: ../src/connection.c:168
+#: ../src/connection.c:193
 msgid "2 Hours"
 msgstr "2小时"
 
-#: ../src/connection.c:171
+#: ../src/connection.c:196
 msgid "Options:"
 msgstr "其他选项："
 
-#: ../src/connection.c:173
+#: ../src/connection.c:198
 msgid "Save password"
 msgstr "保存密码"
 
-#: ../src/connection.c:176
+#: ../src/connection.c:201
 msgid "Auto connect"
 msgstr "自动连接"
 
-#: ../src/connection.c:186
+#: ../src/connection.c:211
 msgctxt "Mnemonic should be (_D) in Chinese."
 msgid "_Disconnect All"
 msgstr "断开全部(_D)"
@@ -116,9 +120,9 @@ msgstr "连接网关"
 msgid "Welcome to ToFree Open Forum"
 msgstr "欢迎光临 ToFree 开源社区"
 
-#: ../src/misc.c:29
+#: ../src/misc.c:27
 msgid "Open file failed."
-msgstr ""
+msgstr "文件打开失败。"
 
 #: ../src/welcome.c:7
 msgid ""
