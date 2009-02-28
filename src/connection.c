@@ -40,25 +40,26 @@ static void on_savepass_btn_toggled (GtkWidget *widget, gpointer data) {
 }
 static void connect_init (GtkWidget *connect_btn) {
     gchar *temp_value;
-    cdata.range = cf_key_file_get_boolean ("Linker", "range");
-    cdata.timeout = cf_key_file_get_boolean ("Linker", "timeout");
-    cdata.savepass = cf_key_file_get_boolean ("Linker", "savepass");
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (cwidgets.range_btn), cdata.range);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (cwidgets.timeout_btn), cdata.timeout);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (cwidgets.savepass_btn), cdata.savepass);
-    if (cdata.savepass) {
-        cdata.username = cf_key_file_get_value ("Linker", "username");
-        cdata.password = cf_key_file_get_value ("Linker", "password");
-        cdata.autoconnect = cf_key_file_get_boolean ("Linker", "autoconnect");
-        temp_value = cf_decrypt (cdata.password);
-        gtk_entry_set_text (GTK_ENTRY (cwidgets.user_entry), cdata.username);
+    connect_data temp_data;
+    temp_data.range = cf_key_file_get_boolean ("Linker", "range");
+    temp_data.timeout = cf_key_file_get_boolean ("Linker", "timeout");
+    temp_data.savepass = cf_key_file_get_boolean ("Linker", "savepass");
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (cwidgets.range_btn), temp_data.range);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (cwidgets.timeout_btn), temp_data.timeout);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (cwidgets.savepass_btn), temp_data.savepass);
+    if (temp_data.savepass) {
+        temp_data.username = cf_key_file_get_value ("Linker", "username");
+        temp_data.password = cf_key_file_get_value ("Linker", "password");
+        temp_data.autoconnect = cf_key_file_get_boolean ("Linker", "autoconnect");
+        temp_value = cf_decrypt (temp_data.password);
+        gtk_entry_set_text (GTK_ENTRY (cwidgets.user_entry), temp_data.username);
         gtk_entry_set_text (GTK_ENTRY (cwidgets.pass_entry), temp_value);
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (cwidgets.autoconnect_btn), cdata.autoconnect);
-        if (cdata.autoconnect) {
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (cwidgets.autoconnect_btn), temp_data.autoconnect);
+        if (temp_data.autoconnect) {
             gtk_button_clicked (GTK_BUTTON (connect_btn));
         }
-        g_free (cdata.username);
-        g_free (cdata.password);
+        g_free (temp_data.username);
+        g_free (temp_data.password);
         g_free (temp_value);
     }
 }
