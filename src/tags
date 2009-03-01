@@ -61,6 +61,7 @@ cf_write	misc.c	/^gboolean cf_write (const gchar *file, const gchar *data) {$/;"
 connect_action	connection.c	/^static gpointer connect_action (gpointer operation) {$/;"	f	file:
 connect_data	connection.c	/^} connect_data;$/;"	t	typeref:struct:__anon7	file:
 connect_init	connection.c	/^static void connect_init (GtkWidget *connect_btn) {$/;"	f	file:
+connect_show_message	connection.c	/^static void connect_show_message (const gchar *buf) {$/;"	f	file:
 connect_status	connection.c	/^static GtkTextBuffer *connect_status;$/;"	v	file:
 connect_status_insert	connection.c	/^static void connect_status_insert (const gchar *message) {$/;"	f	file:
 connect_widgets	connection.c	/^} connect_widgets;$/;"	t	typeref:struct:__anon8	file:
