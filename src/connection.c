@@ -22,51 +22,95 @@ typedef struct {
 static connect_widgets cwidgets;
 static connect_data cdata;
 static GtkTextBuffer *connect_status;
-static void on_user_entry_activated (GtkWidget *widget, gpointer connect_btn) {
-    gtk_button_clicked (GTK_BUTTON (connect_btn));
-}
-static void on_pass_entry_activated (GtkWidget *widget, gpointer connect_btn) {
-    gtk_button_clicked (GTK_BUTTON (connect_btn));
-}
-static void on_autoconnect_btn_toggled (GtkWidget *widget, gpointer data) {
-    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget))) {
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (data), TRUE);
-    }
-}
-static void on_savepass_btn_toggled (GtkWidget *widget, gpointer data) {
-    if (! gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget))) {
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (data), FALSE);
-    }
-}
+
 static void connect_init (GtkWidget *connect_btn) {
     gchar *temp_value;
-    cdata.range = cf_key_file_get_boolean ("Linker", "range");
-    cdata.timeout = cf_key_file_get_boolean ("Linker", "timeout");
-    cdata.savepass = cf_key_file_get_boolean ("Linker", "savepass");
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (cwidgets.range_btn), cdata.range);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (cwidgets.timeout_btn), cdata.timeout);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (cwidgets.savepass_btn), cdata.savepass);
-    if (cdata.savepass) {
-        cdata.username = cf_key_file_get_value ("Linker", "username");
-        cdata.password = cf_key_file_get_value ("Linker", "password");
-        cdata.autoconnect = cf_key_file_get_boolean ("Linker", "autoconnect");
-        temp_value = cf_decrypt (cdata.password);
-        gtk_entry_set_text (GTK_ENTRY (cwidgets.user_entry), cdata.username);
+    connect_data temp_data;
+    temp_data.range = cf_key_file_get_boolean ("Linker", "range");
+    temp_data.timeout = cf_key_file_get_boolean ("Linker", "timeout");
+    temp_data.savepass = cf_key_file_get_boolean ("Linker", "savepass");
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (cwidgets.range_btn), temp_data.range);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (cwidgets.timeout_btn), temp_data.timeout);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (cwidgets.savepass_btn), temp_data.savepass);
+    if (temp_data.savepass) {
+        temp_data.username = cf_key_file_get_value ("Linker", "username");
+        temp_data.password = cf_key_file_get_value ("Linker", "password");
+        temp_data.autoconnect = cf_key_file_get_boolean ("Linker", "autoconnect");
+        temp_value = cf_decrypt (temp_data.password);
+        gtk_entry_set_text (GTK_ENTRY (cwidgets.user_entry), temp_data.username);
         gtk_entry_set_text (GTK_ENTRY (cwidgets.pass_entry), temp_value);
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (cwidgets.autoconnect_btn), cdata.autoconnect);
-        if (cdata.autoconnect) {
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (cwidgets.autoconnect_btn), temp_data.autoconnect);
+        if (temp_data.autoconnect) {
             gtk_button_clicked (GTK_BUTTON (connect_btn));
         }
-        g_free (cdata.username);
-        g_free (cdata.password);
+        g_free (temp_data.username);
+        g_free (temp_data.password);
         g_free (temp_value);
     }
 }
-static void connect_status_insert (const gchar *message) {
-    GtkTextIter iter_end;
-    g_assert (connect_status != NULL);
-    gtk_text_buffer_get_end_iter (connect_status, &iter_end);
-    gtk_text_buffer_insert (connect_status, &iter_end, message, -1);
+static void connect_set_status (const gchar *message) {
+    gtk_text_buffer_set_text (connect_status, message, -1);
+}
+static void connect_show_message (const gchar *buf) {
+    GError *err = NULL;
+    GRegex *regex;
+    GMatchInfo *match_info;
+    gboolean matched;
+    gchar *message, *message_table, *message_with_blank;
+    // convert message to UTF-8
+    message = g_convert (buf, -1, "UTF-8", "GB2312", NULL, NULL, &err);
+    if (err != NULL) {
+        cf_show_error (&err);
+        return;
+    }
+    // get table part in message
+    regex = g_regex_new ("<table.*</table>", G_REGEX_CASELESS | G_REGEX_DOTALL, 0, &err);
+    if (err != NULL) {
+        cf_show_error (&err);
+        g_free (message);
+        return;
+    }
+    matched = g_regex_match (regex, message, 0, &match_info);
+    g_regex_unref (regex);
+    g_free (message);
+    if (!matched) {
+        connect_set_status (_ ("Unusual connection message recieved.\n"));
+        return;
+    }
+    message_table = g_match_info_fetch (match_info, 0);
+    g_match_info_free (match_info);
+    // remove html tags
+    regex = g_regex_new ("&nbsp;|<[^>]*>", G_REGEX_CASELESS, 0, &err);
+    if (err != NULL) {
+        cf_show_error (&err);
+        g_free (message_table);
+        return;
+    }
+    message_with_blank = g_regex_replace (regex, message_table, -1, 0, "", 0, &err);
+    g_regex_unref (regex);
+    g_free (message_table);
+    if (err != NULL) {
+        cf_show_error (&err);
+        return;
+    }
+    // remove new lines
+    // TODO: not perfect
+    regex = g_regex_new ("\n\n|^\n", G_REGEX_MULTILINE, 0, &err);
+    if (err != NULL) {
+        cf_show_error (&err);
+        g_free (message_with_blank);
+        return;
+    }
+    message = g_regex_replace (regex, message_with_blank, -1, 0, "\n", 0, &err);
+    g_regex_unref (regex);
+    g_free (message_with_blank);
+    if (err != NULL) {
+        cf_show_error (&err);
+        return;
+    }
+    // show message
+    connect_set_status (message);
+    g_free (message);
 }
 static gpointer connect_action (gpointer operation) {
     struct hostent *host;
@@ -75,15 +119,14 @@ static gpointer connect_action (gpointer operation) {
     gchar request [100], message [500], buf [MAX_DATA_SIZE];
     // get ip address
     host = gethostbyname (SERVER_NAME);
-    connect_status_insert (_ ("Connecting to the server...\n"));
     if (host == NULL) {
-        connect_status_insert (_ ("Failed to get IP address.\n"));
+        connect_set_status (_ ("Failed to get IP address.\n"));
         return NULL;
     }
     // create a socket
     sockfd = socket (AF_INET, SOCK_STREAM, 0);
     if (sockfd == -1) {
-        connect_status_insert (_ ("Failed to create Socket.\n"));
+        connect_set_status (_ ("Failed to create Socket.\n"));
         return NULL;
     }
     // set up server_addr
@@ -106,16 +149,36 @@ static gpointer connect_action (gpointer operation) {
             "Length: %d\r\n\r\n%s",
             length, length, request);
     // connect
+    // TODO:non-block
+    connect_set_status (_ ("Connecting to the server...\n"));
     conn = connect (sockfd, (struct sockaddr *) &server_addr, sizeof (struct sockaddr));
     if (conn == -1) {
-        connect_status_insert (_ ("Failed to connect"));
+        connect_set_status (_ ("Failed to connect"));
+        close (sockfd);
         return NULL;
     }
     send (sockfd, message, g_utf8_strlen (message, -1), 0);
+    // TODO:non-block
     recv (sockfd, buf, sizeof (buf), 0);
-    printf ("%s\n", buf);
     close (sockfd);
+    connect_show_message (buf);
     return NULL;
+}
+static void on_user_entry_activated (GtkWidget *widget, gpointer connect_btn) {
+    gtk_button_clicked (GTK_BUTTON (connect_btn));
+}
+static void on_pass_entry_activated (GtkWidget *widget, gpointer connect_btn) {
+    gtk_button_clicked (GTK_BUTTON (connect_btn));
+}
+static void on_autoconnect_btn_toggled (GtkWidget *widget, gpointer data) {
+    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget))) {
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (data), TRUE);
+    }
+}
+static void on_savepass_btn_toggled (GtkWidget *widget, gpointer data) {
+    if (! gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget))) {
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (data), FALSE);
+    }
 }
 static void on_connect_btn_clicked (GtkWidget *widget, gpointer operation) {
     GError *err = NULL;
@@ -129,11 +192,11 @@ static void on_connect_btn_clicked (GtkWidget *widget, gpointer operation) {
     cdata.autoconnect = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (cwidgets.autoconnect_btn));
     if (g_utf8_strlen (operation, -1) != 10) {
         if (cdata.username [0] == '\0') {
-            connect_status_insert (_ ("Username cannot be null.\n"));
+            connect_set_status (_ ("Username cannot be null.\n"));
             return;
         }
         else if (cdata.password [0] == '\0') {
-            connect_status_insert (_ ("Password cannot be null.\n"));
+            connect_set_status (_ ("Password cannot be null.\n"));
             return;
         }
         if (cdata.savepass) {
@@ -158,6 +221,7 @@ GtkWidget *create_page_connection (void) {
     GtkWidget *label, *button, *image;
     GtkWidget *connect_btn;
     GtkWidget *scrollwindow, *textview;
+
     page = gtk_alignment_new (.5, .4, .1, .3);
     frame = gtk_frame_new (_ ("IP Gateway"));
     gtk_container_add (GTK_CONTAINER (page), frame);

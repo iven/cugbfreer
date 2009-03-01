@@ -6,7 +6,7 @@
 #include "keyfile.h"
 
 #define LINK_OPEN_CMD "xdg-open"
-#define CF_ENCRYPT_KEY 17
+#define CF_ENCRYPT_KEY 124
 
 void cf_show_error (GError **err);
 gchar *cf_encrypt (const gchar *text);
