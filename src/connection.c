@@ -48,8 +48,15 @@ static void connect_init (GtkWidget *connect_btn) {
         g_free (temp_value);
     }
 }
+static void connect_insert_status (const gchar *message) {
+    GtkTextIter iter;
+    gtk_text_buffer_get_end_iter (connect_status, &iter);
+    gtk_text_buffer_insert (connect_status, &iter, message, -1);
+    gtk_text_buffer_set_modified (connect_status, TRUE);
+}
 static void connect_set_status (const gchar *message) {
     gtk_text_buffer_set_text (connect_status, message, -1);
+    gtk_text_buffer_set_modified (connect_status, TRUE);
 }
 static void connect_show_message (const gchar *buf) {
     GError *err = NULL;
@@ -74,7 +81,7 @@ static void connect_show_message (const gchar *buf) {
     g_regex_unref (regex);
     g_free (message);
     if (!matched) {
-        connect_set_status (_ ("Unusual connection message recieved.\n"));
+        connect_insert_status (_ ("Unusual connection message recieved.\n"));
         return;
     }
     message_table = g_match_info_fetch (match_info, 0);
@@ -94,14 +101,13 @@ static void connect_show_message (const gchar *buf) {
         return;
     }
     // remove new lines
-    // TODO: not perfect
-    regex = g_regex_new ("\n\n|^\n", G_REGEX_MULTILINE, 0, &err);
+    regex = g_regex_new ("^\n", G_REGEX_MULTILINE, 0, &err);
     if (err != NULL) {
         cf_show_error (&err);
         g_free (message_with_blank);
         return;
     }
-    message = g_regex_replace (regex, message_with_blank, -1, 0, "\n", 0, &err);
+    message = g_regex_replace (regex, message_with_blank, -1, 0, "", 0, &err);
     g_regex_unref (regex);
     g_free (message_with_blank);
     if (err != NULL) {
@@ -109,24 +115,32 @@ static void connect_show_message (const gchar *buf) {
         return;
     }
     // show message
-    connect_set_status (message);
+    connect_insert_status (message);
     g_free (message);
 }
 static gpointer connect_action (gpointer operation) {
     struct hostent *host;
     struct sockaddr_in server_addr;
-    gint sockfd, length, conn;
+    struct timeval tv;
+    gint sockfd, length, ret, flags;
     gchar request [100], message [500], buf [MAX_DATA_SIZE];
-    // get ip address
-    host = gethostbyname (SERVER_NAME);
-    if (host == NULL) {
-        connect_set_status (_ ("Failed to get IP address.\n"));
-        return NULL;
-    }
+    fd_set readfds, writefds, exceptfds;
+    // set timeout
+    tv.tv_sec = 3;
+    tv.tv_usec = 0;
     // create a socket
     sockfd = socket (AF_INET, SOCK_STREAM, 0);
     if (sockfd == -1) {
         connect_set_status (_ ("Failed to create Socket.\n"));
+        return NULL;
+    }
+    // set flags to non-block
+    flags = fcntl (sockfd, F_GETFL, 0);
+    fcntl (sockfd, F_SETFL, flags | O_NONBLOCK);
+    // get ip address
+    host = gethostbyname (SERVER_NAME);
+    if (host == NULL) {
+        connect_set_status (_ ("Failed to get IP address.\n"));
         return NULL;
     }
     // set up server_addr
@@ -148,20 +162,38 @@ static gpointer connect_action (gpointer operation) {
             "Content-Type: application/x-www-form-urlencoded\r\n"
             "Length: %d\r\n\r\n%s",
             length, length, request);
+    // init readfds
+    FD_ZERO (&readfds);
+    FD_SET (sockfd, &readfds);
+    writefds = readfds;
+    exceptfds = readfds;
     // connect
-    // TODO:non-block
     connect_set_status (_ ("Connecting to the server...\n"));
-    conn = connect (sockfd, (struct sockaddr *) &server_addr, sizeof (struct sockaddr));
-    if (conn == -1) {
-        connect_set_status (_ ("Failed to connect"));
-        close (sockfd);
-        return NULL;
+    connect (sockfd, (struct sockaddr *) &server_addr, sizeof (struct sockaddr));
+    ret = select (sockfd + 1, &readfds, &writefds, &exceptfds, &tv);
+    if (ret == -1) {
+        connect_insert_status (_ ("Failed to select.\n"));
     }
-    send (sockfd, message, g_utf8_strlen (message, -1), 0);
-    // TODO:non-block
-    recv (sockfd, buf, sizeof (buf), 0);
+    else if (ret == 0) {
+        connect_insert_status (_ ("Connection timeout.\n"));
+    }
+    else {
+        FD_ZERO (&readfds);
+        FD_SET (sockfd, &readfds);
+        send (sockfd, message, g_utf8_strlen (message, -1), 0);
+        ret = select (sockfd + 1, &readfds, NULL, NULL, &tv);
+        if (ret == -1) {
+            connect_insert_status (_ ("Failed to select.\n"));
+        }
+        else if (ret == 0) {
+            connect_insert_status (_ ("Recieving data timeout.\n"));
+        }
+        else {
+            recv (sockfd, buf, sizeof (buf), 0);
+            connect_show_message (buf);
+        }
+    }
     close (sockfd);
-    connect_show_message (buf);
     return NULL;
 }
 static void on_user_entry_activated (GtkWidget *widget, gpointer connect_btn) {

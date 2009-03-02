@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1 Alpha1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-28 04:12+0800\n"
+"POT-Creation-Date: 2009-03-02 14:37+0800\n"
 "PO-Revision-Date: 2009-02-12 16:12+0800\n"
 "Last-Translator: iven <ivenvd@gmail.com>\n"
 "Language-Team: \n"
@@ -23,79 +23,83 @@ msgid "Cugb Freer is a toolkit for students in CUGB."
 msgstr ""
 "Cugb Freer 是一个地大学生自行编写的集合地大各种网络常用功能于一体的工具箱。"
 
-#: ../src/connection.c:78
-msgid "Connecting to the server...\n"
-msgstr "正在连接服务器……\n"
+#: ../src/connection.c:77
+msgid "Unusual connection message recieved.\n"
+msgstr "服务器返回消息异常。\n"
 
-#: ../src/connection.c:80
+#: ../src/connection.c:123
 msgid "Failed to get IP address.\n"
 msgstr "获取IP地址失败。\n"
 
-#: ../src/connection.c:86
+#: ../src/connection.c:129
 msgid "Failed to create Socket.\n"
 msgstr "创建Socket失败。\n"
 
-#: ../src/connection.c:111
+#: ../src/connection.c:153
+msgid "Connecting to the server...\n"
+msgstr "正在连接服务器……\n"
+
+#: ../src/connection.c:156
 msgid "Failed to connect"
 msgstr "连接失败"
 
-#: ../src/connection.c:132
+#: ../src/connection.c:195
 msgid "Username cannot be null.\n"
 msgstr "用户名不能为空。\n"
 
-#: ../src/connection.c:136
+#: ../src/connection.c:199
 msgid "Password cannot be null.\n"
 msgstr "密码不能为空。\n"
 
-#: ../src/connection.c:162
+#: ../src/connection.c:226
 msgid "IP Gateway"
 msgstr "IP控制网关"
 
-#: ../src/connection.c:169
+#: ../src/connection.c:233
 msgid "Username"
 msgstr "用户名"
 
-#: ../src/connection.c:175
+#: ../src/connection.c:239
 msgid "Password"
 msgstr "密　码："
 
-#: ../src/connection.c:182
+#: ../src/connection.c:246
 msgid "Range:"
 msgstr "访问范围："
 
-#: ../src/connection.c:184
+#: ../src/connection.c:248
 msgid "China"
 msgstr "国内"
 
-#: ../src/connection.c:186
+#: ../src/connection.c:250
 msgid "World"
 msgstr "国际"
 
-#: ../src/connection.c:189
+#: ../src/connection.c:253
 msgid "Timeout:"
 msgstr "超时检查："
 
-#: ../src/connection.c:191
+#: ../src/connection.c:255
 msgid "20 Minutes"
 msgstr "20分钟"
 
-#: ../src/connection.c:193
+#: ../src/connection.c:257
 msgid "2 Hours"
 msgstr "2小时"
 
-#: ../src/connection.c:196
+#: ../src/connection.c:260
 msgid "Options:"
 msgstr "其他选项："
 
-#: ../src/connection.c:198
+#: ../src/connection.c:262
 msgid "Save password"
 msgstr "保存密码"
 
-#: ../src/connection.c:201
+#: ../src/connection.c:265
 msgid "Auto connect"
 msgstr "自动连接"
 
-#: ../src/connection.c:211
+#: ../src/connection.c:275
 msgctxt "Mnemonic should be (_D) in Chinese."
 msgid "_Disconnect All"
 msgstr "断开全部(_D)"

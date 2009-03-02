@@ -7,6 +7,7 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 #include <sys/types.h>
+#include <fcntl.h>
 #include "cugbfreer.h"
 #include "keyfile.h"
 

@@ -1,4 +1,4 @@
-* use regex to get information from the reply of ipwg.
+* use select to make socket non-blocking.
 * use PolicyKit to get root permission.
 * use libpcap to implement the network monitor.
 # CugbFreer 0.1 Final.

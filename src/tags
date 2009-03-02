@@ -19,7 +19,7 @@ GETTEXT_PACKAGE	main.h	8;"	d
 IPMSG_ICON	interface.h	13;"	d
 LINKER_ICON	interface.h	12;"	d
 LINK_OPEN_CMD	misc.h	8;"	d
-MAX_DATA_SIZE	connection.h	15;"	d
+MAX_DATA_SIZE	connection.h	16;"	d
 NOTES_COUNT	interface.c	/^    NOTES_COUNT,$/;"	e	enum:__anon1	file:
 NOTE_IPMSG	interface.c	/^    NOTE_IPMSG,$/;"	e	enum:__anon1	file:
 NOTE_LINKER	interface.c	/^    NOTE_LINKER,$/;"	e	enum:__anon1	file:
@@ -27,8 +27,8 @@ NOTE_WELCOME	interface.c	/^    NOTE_WELCOME$/;"	e	enum:__anon1	file:
 PAGES_COUNT	interface.c	/^    PAGES_COUNT$/;"	e	enum:__anon2	file:
 PAGE_LINKER	interface.c	/^    PAGE_LINKER,$/;"	e	enum:__anon2	file:
 PAGE_WELCOME	interface.c	/^    PAGE_WELCOME,$/;"	e	enum:__anon2	file:
-SERVER_NAME	connection.h	13;"	d
-SERVER_PORT	connection.h	14;"	d
+SERVER_NAME	connection.h	14;"	d
+SERVER_PORT	connection.h	15;"	d
 _ABOUT_H	about.h	2;"	d
 _CONNECTION_H	connection.h	2;"	d
 _CUGBFREER_H	cugbfreer.h	2;"	d
@@ -61,9 +61,10 @@ cf_write	misc.c	/^gboolean cf_write (const gchar *file, const gchar *data) {$/;"
 connect_action	connection.c	/^static gpointer connect_action (gpointer operation) {$/;"	f	file:
 connect_data	connection.c	/^} connect_data;$/;"	t	typeref:struct:__anon7	file:
 connect_init	connection.c	/^static void connect_init (GtkWidget *connect_btn) {$/;"	f	file:
+connect_insert_status	connection.c	/^static void connect_insert_status (const gchar *message) {$/;"	f	file:
+connect_set_status	connection.c	/^static void connect_set_status (const gchar *message) {$/;"	f	file:
 connect_show_message	connection.c	/^static void connect_show_message (const gchar *buf) {$/;"	f	file:
 connect_status	connection.c	/^static GtkTextBuffer *connect_status;$/;"	v	file:
-connect_status_insert	connection.c	/^static void connect_status_insert (const gchar *message) {$/;"	f	file:
 connect_widgets	connection.c	/^} connect_widgets;$/;"	t	typeref:struct:__anon8	file:
 create_main_window	interface.c	/^GtkWidget *create_main_window (void) {$/;"	f
 create_notebook	interface.c	/^static void create_notebook (void) {$/;"	f	file:
