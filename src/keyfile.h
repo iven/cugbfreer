@@ -1,10 +1,7 @@
 #ifndef _KEYFILE_H
 #define _KEYFILE_H
 
-#include "cugbfreer.h"
-#include "misc.h"
-
-#define CONFIG_FILE "cugbfreer.conf"
+#include "config.h"
 
 void cf_key_file_load (void);
 void cf_key_file_save (void);

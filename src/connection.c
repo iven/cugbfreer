@@ -1,4 +1,17 @@
+#include <stdio.h>
+#include <strings.h>
+#include <netdb.h>
+#include <arpa/inet.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <fcntl.h>
 #include "connection.h"
+#include "keyfile.h"
+#include "misc.h"
+
+#define SERVER_NAME "sun250.cugb.edu.cn"
+#define SERVER_PORT 80
+#define MAX_DATA_SIZE 8192
 
 enum {
     CF_RANGE_WORLD = 1,

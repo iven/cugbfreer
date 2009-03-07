@@ -3,16 +3,20 @@ CMAKE_MINIMUM_REQUIRED (VERSION 2.6)
 PROJECT (CUGBFREER)
 
 # CMake module path
-SET (CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
+SET (CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
+# destination paths
+SET (CF_DATA_DIR ${CMAKE_INSTALL_PREFIX}/share/cugbfreer)
+SET (CF_PIXMAPS_DIR ${CMAKE_INSTALL_PREFIX}/share/cugbfreer/pixmaps)
+SET (CF_DOC_DIR ${CMAKE_INSTALL_PREFIX}/share/doc/cugbfreer)
+SET (CF_LOCALE_DIR ${CMAKE_INSTALL_PREFIX}/share/locale)
+# documents
 SET (DOCS AUTHORS COPYING ChangeLog INSTALL NEWS README TODO)
-SET (pkgdatadir ${CMAKE_INSTALL_PREFIX}/share/cugbfreer)
-SET (pkgdocdir share/doc/cugbfreer)
-SET (pkglocaledir ${CMAKE_INSTALL_PREFIX}/share/locale)
+# configure file
+CONFIGURE_FILE (config.h.cmake ${CMAKE_SOURCE_DIR}/src/config.h)
 # add subdirectories
 ADD_SUBDIRECTORY (src bin)
-#ADD_SUBDIRECTORY (pixmaps)
-# install documents
-INSTALL (FILES ${DOCS} DESTINATION ${pkgdocdir})
-INSTALL (DIRECTORY pixmaps DESTINATION ${pkgdatadir})
-INSTALL (DIRECTORY config/ DESTINATION ${pkgdatadir})
-INSTALL (DIRECTORY locale/ DESTINATION ${pkglocaledir})
+# install files and directories
+INSTALL (FILES ${DOCS} DESTINATION ${CF_DOC_DIR})
+INSTALL (DIRECTORY pixmaps/ DESTINATION ${CF_PIXMAPS_DIR})
+INSTALL (DIRECTORY config/ DESTINATION ${CF_DATA_DIR})
+INSTALL (DIRECTORY locale/ DESTINATION ${CF_LOCALE_DIR})

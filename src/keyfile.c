@@ -1,11 +1,13 @@
 #include "keyfile.h"
+#include "misc.h"
+
 
 static GKeyFile *cf_key_file;
 void cf_key_file_load (void) {
     GError *err = NULL;
-    const gchar *search_path [2] = {g_get_user_config_dir (), PKGDATADIR};
+    const gchar *search_path [2] = {g_get_user_config_dir (), CF_DATA_DIR};
     cf_key_file = g_key_file_new ();
-    g_key_file_load_from_dirs (cf_key_file, CONFIG_FILE,
+    g_key_file_load_from_dirs (cf_key_file, CF_CONFIG_FILE_NAME,
             search_path, NULL,
             G_KEY_FILE_KEEP_COMMENTS, &err);
     if (err != NULL) {
@@ -16,7 +18,7 @@ void cf_key_file_load (void) {
 void cf_key_file_save (void) {
     gchar *config_file_path;
     gchar *key_file_data;
-    config_file_path = g_build_filename (g_get_user_config_dir (), CONFIG_FILE, NULL);
+    config_file_path = g_build_filename (g_get_user_config_dir (), CF_CONFIG_FILE_NAME, NULL);
     key_file_data = g_key_file_to_data (cf_key_file, NULL, NULL);
     cf_write (config_file_path, key_file_data);
     g_free (key_file_data);

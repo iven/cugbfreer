@@ -1,4 +1,6 @@
 #include "main.h"
+#include "keyfile.h"
+#include "interface.h"
 
 GtkWidget *main_window;
 
@@ -6,9 +8,9 @@ gint main (gint argc, gchar *argv []) {
     gtk_init (&argc, &argv);
     g_thread_init (NULL);
 
-    bindtextdomain (GETTEXT_PACKAGE, PKGLOCALEDIR);
-    bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
-    textdomain (GETTEXT_PACKAGE);
+    bindtextdomain (CF_GETTEXT_PACKAGE, CF_LOCALE_DIR);
+    bind_textdomain_codeset (CF_GETTEXT_PACKAGE, "UTF-8");
+    textdomain (CF_GETTEXT_PACKAGE);
 
     cf_key_file_load ();
 

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1 Alpha1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-03-02 14:37+0800\n"
+"POT-Creation-Date: 2009-03-08 04:48+0800\n"
 "PO-Revision-Date: 2009-02-12 16:12+0800\n"
 "Last-Translator: iven <ivenvd@gmail.com>\n"
 "Language-Team: \n"
@@ -14,117 +14,125 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/about.c:19
+#: ../src/about.c:20
 msgid "ToFree Open Forum"
 msgstr "ToFree 开源社区"
 
-#: ../src/about.c:21
+#: ../src/about.c:22
 msgid "Cugb Freer is a toolkit for students in CUGB."
 msgstr ""
 "Cugb Freer 是一个地大学生自行编写的集合地大各种网络常用功能于一体的工具箱。"
 
-#: ../src/connection.c:77
+#: ../src/connection.c:97
 msgid "Unusual connection message recieved.\n"
 msgstr "服务器返回消息异常。\n"
 
-#: ../src/connection.c:123
-msgid "Failed to get IP address.\n"
-msgstr "获取IP地址失败。\n"
-
-#: ../src/connection.c:129
+#: ../src/connection.c:147
 msgid "Failed to create Socket.\n"
 msgstr "创建Socket失败。\n"
 
-#: ../src/connection.c:153
+#: ../src/connection.c:156
+msgid "Failed to get IP address.\n"
+msgstr "获取IP地址失败。\n"
+
+#: ../src/connection.c:184
 msgid "Connecting to the server...\n"
 msgstr "正在连接服务器……\n"
 
-#: ../src/connection.c:156
-msgid "Failed to connect"
-msgstr "连接失败"
+#: ../src/connection.c:188 ../src/connection.c:199
+msgid "Failed to select.\n"
+msgstr "Select 失败。\n"
 
-#: ../src/connection.c:195
+#: ../src/connection.c:191
+msgid "Connection timeout.\n"
+msgstr "连接超时。\n"
+
+#: ../src/connection.c:202
+msgid "Recieving data timeout.\n"
+msgstr "接收数据超时。\n"
+
+#: ../src/connection.c:240
 msgid "Username cannot be null.\n"
 msgstr "用户名不能为空。\n"
 
-#: ../src/connection.c:199
+#: ../src/connection.c:244
 msgid "Password cannot be null.\n"
 msgstr "密码不能为空。\n"
 
-#: ../src/connection.c:226
+#: ../src/connection.c:271
 msgid "IP Gateway"
 msgstr "IP控制网关"
 
-#: ../src/connection.c:233
+#: ../src/connection.c:278
 msgid "Username"
 msgstr "用户名"
 
-#: ../src/connection.c:239
+#: ../src/connection.c:284
 msgid "Password"
 msgstr "密　码："
 
-#: ../src/connection.c:246
+#: ../src/connection.c:291
 msgid "Range:"
 msgstr "访问范围："
 
-#: ../src/connection.c:248
+#: ../src/connection.c:293
 msgid "China"
 msgstr "国内"
 
-#: ../src/connection.c:250
+#: ../src/connection.c:295
 msgid "World"
 msgstr "国际"
 
-#: ../src/connection.c:253
+#: ../src/connection.c:298
 msgid "Timeout:"
 msgstr "超时检查："
 
-#: ../src/connection.c:255
+#: ../src/connection.c:300
 msgid "20 Minutes"
 msgstr "20分钟"
 
-#: ../src/connection.c:257
+#: ../src/connection.c:302
 msgid "2 Hours"
 msgstr "2小时"
 
-#: ../src/connection.c:260
+#: ../src/connection.c:305
 msgid "Options:"
 msgstr "其他选项："
 
-#: ../src/connection.c:262
+#: ../src/connection.c:307
 msgid "Save password"
 msgstr "保存密码"
 
-#: ../src/connection.c:265
+#: ../src/connection.c:310
 msgid "Auto connect"
 msgstr "自动连接"
 
-#: ../src/connection.c:275
+#: ../src/connection.c:320
 msgctxt "Mnemonic should be (_D) in Chinese."
 msgid "_Disconnect All"
 msgstr "断开全部(_D)"
 
-#: ../src/interface.c:24
+#: ../src/interface.c:33
 msgid "Linker"
 msgstr "网关连接"
 
-#: ../src/interface.c:25
+#: ../src/interface.c:34
 msgid "IP Messager"
 msgstr "飞鸽传书"
 
-#: ../src/interface.c:29
+#: ../src/interface.c:38
 msgid "Welcome"
 msgstr "欢迎界面"
 
-#: ../src/interface.c:30
+#: ../src/interface.c:39
 msgid "Connection"
 msgstr "连接网关"
 
-#: ../src/interface.c:123
+#: ../src/interface.c:132
 msgid "Welcome to ToFree Open Forum"
 msgstr "欢迎光临 ToFree 开源社区"
 
-#: ../src/misc.c:27
+#: ../src/misc.c:29
 msgid "Open file failed."
 msgstr "文件打开失败。"
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-03-02 14:37+0800\n"
+"POT-Creation-Date: 2009-03-08 04:48+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,116 +16,124 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/about.c:19
+#: ../src/about.c:20
 msgid "ToFree Open Forum"
 msgstr ""
 
-#: ../src/about.c:21
+#: ../src/about.c:22
 msgid "Cugb Freer is a toolkit for students in CUGB."
 msgstr ""
 
-#: ../src/connection.c:77
+#: ../src/connection.c:97
 msgid "Unusual connection message recieved.\n"
 msgstr ""
 
-#: ../src/connection.c:123
-msgid "Failed to get IP address.\n"
-msgstr ""
-
-#: ../src/connection.c:129
+#: ../src/connection.c:147
 msgid "Failed to create Socket.\n"
 msgstr ""
 
-#: ../src/connection.c:153
+#: ../src/connection.c:156
+msgid "Failed to get IP address.\n"
+msgstr ""
+
+#: ../src/connection.c:184
 msgid "Connecting to the server...\n"
 msgstr ""
 
-#: ../src/connection.c:156
-msgid "Failed to connect"
+#: ../src/connection.c:188 ../src/connection.c:199
+msgid "Failed to select.\n"
 msgstr ""
 
-#: ../src/connection.c:195
+#: ../src/connection.c:191
+msgid "Connection timeout.\n"
+msgstr ""
+
+#: ../src/connection.c:202
+msgid "Recieving data timeout.\n"
+msgstr ""
+
+#: ../src/connection.c:240
 msgid "Username cannot be null.\n"
 msgstr ""
 
-#: ../src/connection.c:199
+#: ../src/connection.c:244
 msgid "Password cannot be null.\n"
 msgstr ""
 
-#: ../src/connection.c:226
+#: ../src/connection.c:271
 msgid "IP Gateway"
 msgstr ""
 
-#: ../src/connection.c:233
+#: ../src/connection.c:278
 msgid "Username"
 msgstr ""
 
-#: ../src/connection.c:239
+#: ../src/connection.c:284
 msgid "Password"
 msgstr ""
 
-#: ../src/connection.c:246
+#: ../src/connection.c:291
 msgid "Range:"
 msgstr ""
 
-#: ../src/connection.c:248
+#: ../src/connection.c:293
 msgid "China"
 msgstr ""
 
-#: ../src/connection.c:250
+#: ../src/connection.c:295
 msgid "World"
 msgstr ""
 
-#: ../src/connection.c:253
+#: ../src/connection.c:298
 msgid "Timeout:"
 msgstr ""
 
-#: ../src/connection.c:255
+#: ../src/connection.c:300
 msgid "20 Minutes"
 msgstr ""
 
-#: ../src/connection.c:257
+#: ../src/connection.c:302
 msgid "2 Hours"
 msgstr ""
 
-#: ../src/connection.c:260
+#: ../src/connection.c:305
 msgid "Options:"
 msgstr ""
 
-#: ../src/connection.c:262
+#: ../src/connection.c:307
 msgid "Save password"
 msgstr ""
 
-#: ../src/connection.c:265
+#: ../src/connection.c:310
 msgid "Auto connect"
 msgstr ""
 
-#: ../src/connection.c:275
+#: ../src/connection.c:320
 msgctxt "Mnemonic should be (_D) in Chinese."
 msgid "_Disconnect All"
 msgstr ""
 
-#: ../src/interface.c:24
+#: ../src/interface.c:33
 msgid "Linker"
 msgstr ""
 
-#: ../src/interface.c:25
+#: ../src/interface.c:34
 msgid "IP Messager"
 msgstr ""
 
-#: ../src/interface.c:29
+#: ../src/interface.c:38
 msgid "Welcome"
 msgstr ""
 
-#: ../src/interface.c:30
+#: ../src/interface.c:39
 msgid "Connection"
 msgstr ""
 
-#: ../src/interface.c:123
+#: ../src/interface.c:132
 msgid "Welcome to ToFree Open Forum"
 msgstr ""
 
-#: ../src/misc.c:27
+#: ../src/misc.c:29
 msgid "Open file failed."
 msgstr ""
 

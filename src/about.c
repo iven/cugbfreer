@@ -1,3 +1,4 @@
+#include "about.h"
 #include "misc.h"
 
 static void on_url_activated (GtkAboutDialog *about, const gchar *link_, gpointer data) {

@@ -1,4 +1,6 @@
+#include <stdio.h>
 #include "misc.h"
+#include "keyfile.h"
 
 extern GtkWidget *main_window;
 void cf_show_error (GError **err) {
@@ -16,7 +18,7 @@ void cf_show_error (GError **err) {
     *err = NULL;
 }
 void cf_open_link (const gchar *link_) {
-    gchar *cmd = g_strjoin (" ", LINK_OPEN_CMD, link_, NULL);
+    gchar *cmd = g_strjoin (" ", CF_LINK_OPEN_CMD, link_, NULL);
     g_spawn_command_line_async (cmd, NULL);
     g_free (cmd);
 }

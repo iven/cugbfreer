@@ -1,7 +1,7 @@
 #ifndef _WELCOME_H
 #define _WELCOME_H
 
-#include "cugbfreer.h"
+#include "config.h"
 
 GtkWidget *create_page_welcome (void);
 

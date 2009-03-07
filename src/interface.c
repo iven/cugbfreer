@@ -1,4 +1,13 @@
 #include "interface.h"
+#include "misc.h"
+#include "about.h"
+#include "connection.h"
+#include "welcome.h"
+
+#define APP_LOGO CF_PIXMAPS_DIR"/logo.png"
+#define APP_BANNER CF_PIXMAPS_DIR"/banner.png"
+#define LINKER_ICON CF_PIXMAPS_DIR"/linker.png"
+#define IPMSG_ICON CF_PIXMAPS_DIR"/ipmsg.png"
 
 enum {
     NOTE_LINKER,
